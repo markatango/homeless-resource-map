@@ -1,0 +1,28 @@
+{
+  "name": "homeless-residents-and-services-map",
+  "version": "0.1.0",
+  "description": "Interactive map showing approximate homeless population density by census tract and locations of service providers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Homelessness",
+    "Homeless",
+    "service",
+    "providers",
+    "Hack4LA"
+  ],
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "holderjs": "^2.9.4",
+    "jsonwebtoken": "^5.0.2",
+    "method-override": "~2.1.2",
+    "mongoose": "~4.1.0",
+    "morgan": "~1.2.2",
+    "variety": "file:vendor\\variety"
+  },
+  "author": "Mark Rodighiero",
+  "license": "ISC"
+}
