@@ -1,14 +1,15 @@
 <!doctype html>
 <!-- Declares meanMapApp as the starting Angular module -->
-<html class="no-js" ng-app="meanMapApp">
+<html class="no-js" ng-app="homelessResourceMap">
+
 <head>
     <meta charset="utf-8">
     <title>Homelessness Resource Locator</title>
     <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="style.css" />
     <!-- Holder JS -->
     <script src="../bower_components/holderjs/holder.js"></script>
     <!-- Google Maps API -->
@@ -20,39 +21,41 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
-	<!-- Angular Scripts -->
+    <!-- Angular Scripts -->
     <script src="js/app.js"></script>
     <script src="js/addCtrl.js"></script>
-	<script src="js/queryCtrl.js"></script>    
-	<!-- Geolocation service script -->
-	<script src="js/gservice.js"></script>
+    <script src="js/queryCtrl.js"></script>
+    <!-- Geolocation service script -->
+    <script src="js/gservice.js"></script>
 </head>
+
 <body>
-<div class="container">
-    <div class="header">
-        <ul class="nav nav-pills pull-right">
-            <li active><a href="/#/join">Add a service</a></li>
-            <li disabled><a href="/#/find">Find a service</a></li>
-        </ul>
-        <h3 class="text-muted">Homeless population distribution and location of related services</h3>
-    </div>
-	
-    <!-- Map and Side Panel -->
-    <div class="row content">
-        <!-- Google Map -->
-        <div class="col-md-7">
-            <div id="map" style="width:645px; height:645px"></div>
+    <div class="container">
+        <div class="header">
+            <ul class="nav nav-pills pull-right">
+                <li active><a href="/#/join">Add a service</a></li>
+                <li disabled><a href="/#/find">Find a service</a></li>
+            </ul>
+            <h3 class="text-muted">Homeless population distribution and location of related services</h3>
         </div>
-        <!-- Side Panel -->
-        <div ng-view></div>
+
+        <!-- Map and Side Panel -->
+        <div class="row content">
+            <!-- Google Map -->
+            <div class="col-md-7">
+                <div id="map" style="width:645px; height:645px"></div>
+            </div>
+            <!-- Side Panel -->
+            <div ng-view></div>
+        </div>
+
+        <hr/>
+        <!-- Footer -->
+        <div class="footer">
+            <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Ahmed Haque for Scotch IO -
+                <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p>
+        </div>
     </div>
-	
-    <hr/>
-    <!-- Footer -->
-    <div class="footer">
-        <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Ahmed Haque for Scotch IO -
-            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p>
-    </div>
-</div>
 </body>
+
 </html>

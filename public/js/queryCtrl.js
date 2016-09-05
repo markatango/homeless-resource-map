@@ -1,6 +1,6 @@
 // Creates the addCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
 var queryCtrl = angular.module('queryCtrl', ['geolocation', 'gservice']);
-queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geolocation, gservice){
+queryCtrl.controller('queryCtrl', function ($scope, $log, $http, $rootScope, geolocation, gservice) {
 
     // Initializes Variables
     // ----------------------------------------------------------------------------
@@ -11,8 +11,11 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     // ----------------------------------------------------------------------------
 
     // Get User's actual coordinates based on HTML5 at window load
-    geolocation.getLocation().then(function(data){
-        coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    geolocation.getLocation().then(function (data) {
+        coords = {
+            lat: data.coords.latitude,
+            long: data.coords.longitude
+        };
 
         // Set the latitude and longitude equal to the HTML5 coordinates
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
@@ -20,17 +23,17 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     });
 
     // Get coordinates based on mouse click. When a click event is detected....
-    $rootScope.$on("clicked", function(){
+    $rootScope.$on("clicked", function () {
 
         // Run the gservice functions associated with identifying coordinates
-        $scope.$apply(function(){
+        $scope.$apply(function () {
             $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
         });
     });
 
     // Take query parameters and incorporate into a JSON queryBody
-    $scope.queryUsers = function(){
+    $scope.queryUsers = function () {
 
         // Assemble Query Body
         queryBody = {
@@ -49,22 +52,22 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
         // Post the queryBody to the /query POST route to retrieve the filtered results
         $http.post('/query', queryBody)
 
-            // Store the filtered results in queryResults
-            .success(function(queryResults){
+        // Store the filtered results in queryResults
+        .success(function (queryResults) {
 
                 // Query Body and Result Logging
                 /* console.log("QueryBody:");
                 console.log(queryBody);
                 console.log("QueryResults:");
                 console.log(queryResults); */
-				
-				// Pass the filtered results to the Google Map Service and refresh the map
-				gservice.refresh(queryBody.latitude, queryBody.longitude, queryResults);
+
+                // Pass the filtered results to the Google Map Service and refresh the map
+                gservice.refresh(queryBody.latitude, queryBody.longitude, queryResults);
 
                 // Count the number of records retrieved for the panel-footer
                 $scope.queryCount = queryResults.length;
             })
-            .error(function(queryResults){
+            .error(function (queryResults) {
                 console.log('Error ' + queryResults);
             })
     };
