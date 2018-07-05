@@ -1,0 +1,45 @@
+<!-- selectTypeForm.html -->
+
+<!-- Select a service type-->
+<div class="col-md-5">
+
+    <!-- Creates Main Panel -->
+    <div class="panel panel-default">
+
+        <!-- Panel Title -->
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Select a service</span></h2>
+        </div>
+
+        <!-- Panel Body -->
+        <div class="panel-body">
+
+            <!-- Creates Form -->
+            <form name="selectTypeForm">
+                <div class="input-group">
+                    
+                    <span class="input-group" ng-repeat="type in provider_types"  >
+                        
+                        <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}                        
+                    </span>
+                    
+                </div>
+            </form>
+            <hr />
+            <p>{{selectedKeys}}</p>
+            <ul>
+                <li ng-repeat="mne in selected">{{mne}}</li>
+            </ul>
+            
+            <p>{{selectTypeIndex}}</p>
+           
+            
+            
+        </div>
+
+        <!-- Footer panel for displaying count. Note how it will only display if queryCount is greater than 0 -->
+        <!-- <div ng-show="queryCount>0" class="panel-footer">
+            <p class="text-center">Hot Dang! We Found {{queryCount}} Teammates.</p>
+        </div> -->
+    </div>
+</div>

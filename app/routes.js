@@ -1,7 +1,10 @@
 //app/routes.js
 // Dependencies
 var mongoose = require('mongoose');
-var User = require('./model.js');
+var User = require('./models/user.js');
+var Provider = require('./models/provider.js');
+var Provider_type = require('./models/provider_type.js');
+var util = require("util");
 
 // Opens App Routes
 module.exports = function (app) {
@@ -9,7 +12,7 @@ module.exports = function (app) {
     // GET Routes
     // --------------------------------------------------------
     // Retrieve records for all users in the db
-    app.get('/users', function (req, res) {
+    /*app.get('/users', function (req, res) {
 
         // Uses Mongoose schema to run the search (empty conditions)
         var query = User.find({});
@@ -21,7 +24,81 @@ module.exports = function (app) {
             res.json(users); // orig
 
         });
+    });*/
+    
+    // Retrieve records for all provider types in the db
+    app.get('/provider_types', function (req, res) {
+
+        // Uses Mongoose schema to run the search (empty conditions)
+        var query = Provider_type.find({});
+        query.exec(function (err, provider_types) {
+            if (err)
+                res.send(err);
+
+            // If no errors are found, it responds with a JSON of all provider_types
+            res.json(provider_types); // orig
+
+        });
     });
+    
+    
+    
+    
+    
+    // Retrieve records for all providers in the db
+    app.get('/providers', function (req, res) {
+        //console.log(util.inspect(req.body));
+        //res.json({message:"test Get"});// orig
+        
+        // Uses Mongoose schema to run the search (empty conditions)
+        
+        var query = Provider.find({}, {
+            /*Street_Address : 1,
+            City : 1,
+            Zip : 1,
+            Phone : 1,
+            Email : 1,
+            Website : 1,
+            Location : 1,
+            Agency : 1,
+            Service_Type : 1,
+            Population : 1,
+            Hours_of_operation : 1,
+            _id:0
+            ,
+          
+            Last_Name : 0,
+            Title : 0,
+            Suite_Floor_Dept_Room : 0,
+            State : 0,       
+            CensusPlaceFips : 0,
+            CensusMsaFips : 0,
+            CensusMetDivFips : 0,
+            CensusMcdFips : 0,
+            CensusCbsaMicro : 0,
+            CensusCbsaFips : 0,
+            CensusBlock : 0,
+            CensusBlockGroup : 0,
+            CensusTract : 0,
+            CensusCountyFips : 0,
+            CensusStateFips : 0 */
+        });
+        
+       query.exec(function (err, results) {
+            if (err)
+                res.send(err);
+
+            // If no errors are found, it responds with a JSON of all providers
+            if(results) {
+                res.json(results); 
+            } else {
+                res.json({message:"No providers found"});// orig
+            };
+
+        });
+    });
+
+
 
     // POST Routes
     // --------------------------------------------------------
@@ -39,6 +116,21 @@ module.exports = function (app) {
             // If no errors are found, it responds with a JSON of the new user
             res.json(req.body);
         });
+    });
+    
+    app.post('/providerlocsbytype', function(req, res){
+        var query = req.body.query;
+        var projection = req.body.projection;
+        
+        var query = Provider.find(query, projection);
+        query.exec(function (err, locations) {
+            if (err)
+                res.send(err);
+
+            // If no errors, respond with a JSON of all locations that meet the criteria
+            res.json(locations);
+        });
+        
     });
 
     // Retrieves JSON records for all users who meet a certain set of query conditions

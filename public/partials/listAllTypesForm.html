@@ -1,0 +1,21 @@
+<div class="col-md-5">
+    <div class="panel panel-default">
+        <!-- Panel Title -->
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Service types</h2>
+        </div>
+        <!-- Panel Body -->
+        <div class="panel-body">
+            <!-- List all service types from dsc collection -->
+            <ul>
+                <li ng-repeat="type in provider_types" >
+                    <h4 >{{type.mne}}</h4>
+                    <p >{{type.shortDes}}</p>
+                    <hr />
+                    <p>{{type.longDesc}}</p>
+                </li> 
+            </ul>
+            
+        </div>
+    </div>
+</div>
