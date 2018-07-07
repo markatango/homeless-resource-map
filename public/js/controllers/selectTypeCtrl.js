@@ -42,7 +42,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
     // Functions
     // ----------------------------------------------------------------------------
    
-    // get locactions for selected provider types
+    // get locations for selected provider types
     // Private Inner Functions
     // --------------------------------------------------------------
     getLocations = function(types){
@@ -104,7 +104,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
     // Get coordinates based on mouse click. When a click event is detected....
     $rootScope.$on("clicked", function () {
 
-        // Run the gservice functions associated with identifying coordinates
+        // Run the gserviceForProviders functions associated with identifying coordinates
         $scope.$apply(function () {
             $scope.formData.latitude = parseFloat(gserviceForProviders.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gserviceForProviders.clickLong).toFixed(3);

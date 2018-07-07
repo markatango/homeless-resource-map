@@ -19,19 +19,20 @@
                 <div class="input-group">
                     
                     <span class="input-group" ng-repeat="type in provider_types"  >
-                        
-                        <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}                        
+                        <label>
+                            <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}     
+                        </label>
                     </span>
                     
                 </div>
             </form>
-            <hr />
+            <!-- <hr />
             <p>{{selectedKeys}}</p>
             <ul>
                 <li ng-repeat="mne in selected">{{mne}}</li>
             </ul>
             
-            <p>{{selectTypeIndex}}</p>
+            <p>{{selectTypeIndex}}</p> -->
            
             
             
