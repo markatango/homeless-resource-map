@@ -120,6 +120,7 @@ module.exports = function (app) {
     
     app.post('/providerlocsbytype', function(req, res){
         var query = req.body.query;
+		console.log(util.inspect(req.body));
         var projection = req.body.projection;
         
         var query = Provider.find(query, projection);

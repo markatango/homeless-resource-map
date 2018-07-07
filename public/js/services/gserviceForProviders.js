@@ -16,7 +16,7 @@ angular.module('gserviceForProviders', [])
 
         // Selected Location (initialize to center of America)
         var selectedLat = 34.045;
-        var selectedLong = -118.240;
+        var selectedLong = -118.006355;
 
 
 
@@ -51,7 +51,7 @@ angular.module('gserviceForProviders', [])
                 //console.log("no filteredResults provided")
                 // Perform an AJAX call to get all of the records in the db.
                 $http.get('/providers', {})
-                    .success(function (response) {
+                    .then(function (response) {
 
                         // Then convert the results into map points
                         // console.log("attempting to get NO filteredResponse locations...");
@@ -60,7 +60,7 @@ angular.module('gserviceForProviders', [])
 
                         // Then initialize the map -- noting that no filter was used.
                         initialize(latitude, longitude, false);
-                    }).error(function () {});
+                    }).catch(function () {});
             }
         };
 

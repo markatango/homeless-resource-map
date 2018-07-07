@@ -53,7 +53,7 @@ queryCtrl.controller('queryCtrl', function ($scope, $log, $http, $rootScope, geo
         $http.post('/query', queryBody)
 
         // Store the filtered results in queryResults
-        .success(function (queryResults) {
+        .then(function (queryResults) {
 
                 // Query Body and Result Logging
                 /* console.log("QueryBody:");
@@ -67,7 +67,7 @@ queryCtrl.controller('queryCtrl', function ($scope, $log, $http, $rootScope, geo
                 // Count the number of records retrieved for the panel-footer
                 $scope.queryCount = queryResults.length;
             })
-            .error(function (queryResults) {
+            .catch(function (queryResults) {
                 console.log('Error ' + queryResults);
             })
     };

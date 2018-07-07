@@ -66,7 +66,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
 
         // Saves the user data to the db
         $http.post('/users', userData)
-            .success(function (data) {
+            .then(function (data) {
 
                 // Once complete, clear the form (except location)
                 $scope.formData.username = "";
@@ -78,7 +78,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                 gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
 
             })
-            .error(function (data) {
+            .catch(function (data) {
                 console.log('Error: ' + data);
             });
     };

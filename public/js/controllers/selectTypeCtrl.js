@@ -1,4 +1,4 @@
-// Creates the selectTypeCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
+// Creates the selectTypeCtrl Module and Controller. Note that it depends on 'geolocation' and 'gserviceForProviders' modules.
 var selectTypeCtrl = angular.module('selectTypeCtrl', ['geolocation','gserviceForProviders']);
 selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $rootScope, geolocation, gserviceForProviders) {
 
@@ -53,14 +53,14 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         var query = {Services: {$in: types}};
         var projection = {_id:0};
         
-       // console.log("getLocations(" + types);
+        console.log("getLocations(" + types);
         
         $http.post('/providerlocsbytype', {query, projection} )
         .success(function(queryResults){
-            /*console.log("query: ");
+            console.log("query: ");
             console.log(query);
             console.log("projection: ");
-            console.log(projection);*/
+            console.log(projection);
             gserviceForProviders.refresh(latitude, longitude, queryResults)
             
         }).error(function (queryResults) {
