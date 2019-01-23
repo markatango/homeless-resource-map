@@ -1,12 +1,15 @@
-<!doctype html>
+<!doctype html5>
 <!-- Declares meanMapApp as the starting Angular module -->
 <html class="no-js" ng-app="homelessResourceMap">
 
 <head>
     <meta charset="utf-8">
     <title>Homelessness Resource Locator</title>
-    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <!-- <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      
     <!-- CSS -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -26,7 +29,6 @@
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     
     <!-- jQuery library -->
-    
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
@@ -49,28 +51,23 @@
 </head>
 
 <body>
-    <div class="container">
-        
+
+    <div class="container"> 
         <div class="header">
             <ul class="nav nav-pills pull-right">
-                <!-- <li disabled><a href="/#/join">Add a service</a></li>
-                <li disabled><a href="/#/find">Find a service</a></li> -->
-                <li active><a href="/#/selecttype">Select a service</a></li>
+                <li ><a href="/#/join">   a service</a></li>
+                <li ><a href="/#/find">   Find a service</a></li> 
+                <li active><a href="/#/selecttype">   Select a service</a></li>
             </ul>
-            <h3 class="text-muted">Homeless population distribution and location of related services</h3>
+            <h2 class="text-muted">Homeless population distribution and service locations</h2>
         </div>
 
         <!-- Map and Side Panel -->
-        <div class="col-md-12"> <!-- row content -->
-            
+        <div class="row"> 
             <!-- Google Map -->
-            <div class="col-md-6">
-                <div id="map" style="width:645px; height:645px"></div>
-            </div>
-            
+            <div id="map" style="width:400px; height:600px" class="col-md-9"></div>
             <!-- Side Panel -->
-            <div ng-view ></div>
-            
+            <div ng-view class="col-md-3"></div>
         </div>
 
         <hr/>
