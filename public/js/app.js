@@ -5,13 +5,13 @@ var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'geolocation'
 
         // Join Team Control Panel
         $routeProvider
-            /*.when('/join', {
+            .when('/join', {
             controller: 'addCtrl',
             templateUrl: 'partials/addForm.html',
 
             // Find Teammates Control Panel
         })
-            .when('/find', {
+            /*.when('/find', {
             controller: 'queryCtrl',
             templateUrl: 'partials/queryForm.html',
 

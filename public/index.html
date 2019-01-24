@@ -52,31 +52,39 @@
 
 <body>
 
-    <div class="container"> 
+    <div class="container-fluid"> 
+    <div class="row">
+        <div class="col-md-12">
         <div class="header">
             <ul class="nav nav-pills pull-right">
-                <li ><a href="/#/join">   a service</a></li>
+                <li ><a href="/#/join">   List a service</a></li>
                 <li ><a href="/#/find">   Find a service</a></li> 
                 <li active><a href="/#/selecttype">   Select a service</a></li>
             </ul>
             <h2 class="text-muted">Homeless population distribution and service locations</h2>
         </div>
+        </div>
+    </div>
 
-        <!-- Map and Side Panel -->
-        <div class="row"> 
+    <!-- Map and Side Panel -->
+    <div class="row"> 
+        <div class="col-md-12" style="left:20px; position:relative">
             <!-- Google Map -->
-            <div id="map" style="width:400px; height:600px" class="col-md-9"></div>
-            <!-- Side Panel -->
-            <div ng-view class="col-md-3"></div>
+            <div class="row"> 
+                <div id="map" style="width:300px; height:600px" class="col-md-7"></div>
+                <!-- Side Panel -->
+                <div ng-view class="col-md-5"></div>
+            </div>
         </div>
+    </div>
 
-        <hr/>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <!-- <p class="text-center"><span class="glyphicon glyphicon-check"></span> After Ahmed Haque for Scotch IO -
-                <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p> -->
-        </div>
+    <hr/>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> After Ahmed Haque for Scotch IO -
+            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p> 
+    </div>
     </div>
 </body>
     
