@@ -1,63 +1,129 @@
-<div class="col-md-5">
+<!-- <div class="col-md-5"> -->
     <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Add a service<span class="glyphicon glyphicon-map-marker"></span></h2>
+            <h3 class="panel-title text-center">Add a service<span class="glyphicon glyphicon-map-marker"></span></h3>
+            <p style="text-center">* - required information<p>
         </div>
         <!-- Panel Body -->
-        <div class="panel-body">
-            <!-- Creates Form (novalidate disables HTML validation, Angular will control) -->
-            <form name="addForm" novalidate>
+        <div class="panel-body" ng-controller="addCtrl">
+        
+        <!-- database fields 
+                "Street_Address" : "1 E. Regent St",
+                "Services" : "LS",
+                "First_Name" : "NA",
+                "Last_Name" : "NA",
+                "Agency" : "Inglewood Courthouse- Legal Aid Foundation of Los Angeles (LAFLA)",
+                "Title" : "NA",
+                "Service_Type" : "Low-cost legal service",
+                "Population" : "Low-income community",
+                "Hours_of_operation" : "Walk-ins Only: M, T, W, Th 9am-12pm, 1:30pm-4pm; Fri 9am-12pm",
+                "Suite_Floor_Dept_Room" : "#107",
+                "State" : "CA",
+                "City" : "Inglewood",
+                "Zip" : 90301,
+                "Phone" : "NA",
+                "Email" : "NA",
+                "Website" : "NA",  -->
+                
+            <form name = "addForm" novalidate>
+            
+            <!--<div class="row">
+                <div class="input-group col-md-12">
+                        <label for "Agency">Agency<span class="badge">*</span> 
+                            <input type="text" id="Agency" class="form-control" name="Agency" ng-model="formData.Agency" required>    
+                        </label>            
+                </div>
+            </div> -->
+            
+            <div class="form-horizontal">
+                <label for="Agency" class="control-label col-md-2">Provider type</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="Agency" placeholder="Agency" ng-model="formData.Agency" required>
+                </div>
+            </div>
+                
+                
+                
+                
+            
+                <!--<div class="form-group ">
+                    <label for="Agency">Agency<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Agency" placeholder="OldandGold" ng-model="formData.Agency" required>
+                </div> -->
+                
+                
+                
                 <div class="form-group">
-                    <label for="username">Username <span class="badge">All fields required</span></label>
-                    <input type="text" class="form-control" id="username" placeholder="OldandGold" ng-model="formData.username" required>
-                </div>
-                <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
-                <div class="form-group">
-                    <label for="username">Username <span class="badge">All fields required</span></label>
-                    <input type="text" class="form-control" id="username" placeholder="OldandGold" ng-model="formData.username" required>
-                </div>
-                <label class="radio control-label">Gender</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radiomale" value="Male" ng-model="formData.gender"> Male
-                    </label>
-                </div>
-                <div class="radio" required>
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radiofemale" value="Female" ng-model="formData.gender"> Female
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="radioother" value="What's it to ya?" ng-model="formData.gender"> What's it to ya?
-                    </label>
+                    <label for="Services">Services<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Services" placeholder="OldandGold" ng-model="formData.Services" required>
                 </div>
                 <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" id="age" placeholder="72" ng-model="formData.age" required>
+                    <label for="Service_Type">Service_Type<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Service_Type" placeholder="OldandGold" ng-model="formData.Service_Type" required>
                 </div>
                 <div class="form-group">
-                    <label for="language">Favorite Language</label>
-                    <input type="text" class="form-control" id="language" placeholder="Fortran" ng-model="formData.favlang" required>
+                    <label for="Population">Population<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Population" placeholder="OldandGold" ng-model="formData.Population" required>
                 </div>
                 <div class="form-group">
-                    <label for="latitude">Latitude</label>
-                    <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                    <label for="Hours_of_operation">Hours_of_operation<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Hours_of_operation" placeholder="OldandGold" ng-model="formData.Hours_of_operation" required>
                 </div>
                 <div class="form-group">
-                    <label for="longitude">Longitude</label>
-                    <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                    <label for="Street_Address">Street_Address<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Street_Address" placeholder="OldandGold" ng-model="formData.Street_Address" required>
                 </div>
                 <div class="form-group">
-                    <label for="verified">HTML5 Verified Location? <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" id="verified" placeholder="Nope (Thanks for spamming my map...)" ng-model="formData.htmlverified" readonly>
+                    <label for="Suite_Floor_Dept_Room">Suite_Floor_Dept_Room<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Suite_Floor_Dept_Room" placeholder="OldandGold" ng-model="formData.Suite_Floor_Dept_Room" required>
                 </div>
-                <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
+                <div class="form-group">
+                    <label for="City">City<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="City" placeholder="OldandGold" ng-model="formData.City" required>
+                </div>
+                <div class="form-group">
+                    <label for="State">State<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="State" placeholder="OldandGold" ng-model="formData.State" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Zip">Zip<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Zip" placeholder="OldandGold" ng-model="formData.Zip" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Website">Website<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Website" placeholder="OldandGold" ng-model="formData.Website" required>
+                </div>
+                
+                
+                <hr />
+                
+                <h4>Contact information</h4>
+
+                <div class="form-group">
+                    <label for="Title">Title<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Title" placeholder="OldandGold" ng-model="formData.Title" required>
+                </div>
+                <div class="form-group">
+                    <label for="First_Name">First_Name<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="First_Name" placeholder="OldandGold" ng-model="formData.First_Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="Last_Name">Last_Name<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Last_Name" placeholder="OldandGold" ng-model="formData.Last_Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="Phone">Phone<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Phone" placeholder="OldandGold" ng-model="formData.Phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email<span class="badge">*</span></label>
+                    <input type="text" class="form-control" id="Email" placeholder="OldandGold" ng-model="formData.Email" required>
+                </div>
                 <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
             </form>
         </div>
     </div>
-</div>
+<!-- </div> -->

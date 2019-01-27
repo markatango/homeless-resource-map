@@ -1,5 +1,5 @@
 // Declares the initial angular module "homelessResourceMap". Module grabs other controllers and services.
-var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'geolocation',  'gserviceForProviders', 'ngRoute'])
+var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'geolocation',  'gserviceForProviders', 'ngRoute'])
     // Configures Angular routing -- showing the relevant view and controller when needed.
     .config(function ($routeProvider) {
 
