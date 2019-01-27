@@ -1,32 +1,96 @@
-<!-- <div class="col-md-5"> -->
-    <div class="panel panel-default">
-        <!-- Panel Title -->
-        <div class="panel-heading">
-            <h3 class="panel-title text-center">Add a service<span class="glyphicon glyphicon-map-marker"></span></h3>
-            <p style="text-center">* - required information<p>
-        </div>
-        <!-- Panel Body -->
-        <div class="panel-body" ng-controller="addCtrl">
-        
-        <!-- database fields 
-                "Street_Address" : "1 E. Regent St",
-                "Services" : "LS",
-                "First_Name" : "NA",
-                "Last_Name" : "NA",
-                "Agency" : "Inglewood Courthouse- Legal Aid Foundation of Los Angeles (LAFLA)",
-                "Title" : "NA",
-                "Service_Type" : "Low-cost legal service",
-                "Population" : "Low-income community",
-                "Hours_of_operation" : "Walk-ins Only: M, T, W, Th 9am-12pm, 1:30pm-4pm; Fri 9am-12pm",
-                "Suite_Floor_Dept_Room" : "#107",
-                "State" : "CA",
-                "City" : "Inglewood",
-                "Zip" : 90301,
-                "Phone" : "NA",
-                "Email" : "NA",
-                "Website" : "NA",  -->
-                
-            <form name = "addForm" novalidate>
+<!doctype html5>
+<!-- Declares meanMapApp as the starting Angular module -->
+<html class="no-js" ng-app="homelessResourceMap">
+
+<head>
+    <meta charset="utf-8">
+    <title>Homelessness Resource Locator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <!-- <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- LESS 
+    <link rel="stylesheet/less" type="text/css" href="assets/styles.less" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script> -->
+     
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- <link rel="stylesheet" href="assets/styles.css" /> -->
+    <link rel="stylesheet" href="assets/style.css" />
+    
+    <!-- Holder JS -->
+    <script src="../bower_components/holderjs/holder.js"></script>
+    
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrn605l7RPadiwdzsOlRw9O28lxfYBJ6s"></script>
+    
+    <!-- Modernizr -->
+    <script src="../bower_components/modernizr/bin/modernizr"></script>
+    
+    <!-- JS Source -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery library -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    
+    <!-- Controllers -->
+    <script src="./js/app.js"></script>
+    
+    <script src="./js/controllers/addCtrl.js"></script>
+    <!-- <script src="./js/controllers/queryCtrl.js"></script> -->
+    
+    <script src="./js/controllers/selectTypeCtrl.js"></script>
+
+    
+    <!-- Geolocation service script -->
+   <!-- <script src="js/services/gservice.js"></script> -->
+    <script src="js/services/gserviceForProviders.js"></script>
+    
+    <script src="./js/misc/tooltips.js"></script>
+    <style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+	/* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
+    .form-horizontal .control-label{
+        padding-top: 7px;
+    }
+    </style>
+</head>
+
+<body ng-app="homelessResourceMap">
+<div class="jumbotron">
+    <h1>Homeless population distribution and service locations</h1>
+    <p>Comparing locations of services for the homeless with locations of homeless persons</p>
+</div>
+<div class="container-fluid"> 
+    <!-- Map and Side Panel -->
+    <div class="row"> 
+        <div class="col col-md-12" style="left:20px; position:relative">
+            <!-- Google Map -->
+            <div class="row"> 
+                <div id="map" class="col col-md-6" style="width:300px; height:600px">Map goes here</div>
+                <!-- Side Panel -->
+                <div class="col col-md-6">
+                    <div class="row"> 
+                        <div class="col col-md-12">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link" data-toggle="pill" href="/#/join">   Add a service</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="pill" href="/#/find">   Find a service</a></li> 
+                            <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="/#/selecttype">   Select a service</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <!-- <div ng-view class="col-md-12"></div> -->
+                        <div class="col col-md-12">
+                             <!-- <div class="col col-md-6"> -->
+                            <form name = "addForm" novalidate>
                                  
                                 <div class="row">
                                 <div class="form-horizontal col-md-12">
@@ -181,6 +245,22 @@
                                 
                                 <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
                             </form>
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- right side col 6 -->
+            </div> <!-- row -->
         </div>
+    </div> <!-- row -->
+</div> <!-- container -->
+
+    <hr/>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> After Ahmed Haque for Scotch IO -
+            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p> 
     </div>
-<!-- </div> -->
+    </div>
+</body>
+    
+</html>
