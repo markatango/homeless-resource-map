@@ -66,9 +66,9 @@ queryCtrl.controller('queryCtrl', function ($scope, $log, $http, $rootScope, geo
 
                 // Count the number of records retrieved for the panel-footer
                 $scope.queryCount = queryResults.length;
-            })
-            .catch(function (queryResults) {
-                console.log('Error ' + queryResults);
-            })
+        })
+        .catch(function (queryResults) {
+            console.log('Error ' + queryResults);
+        })
     };
 });

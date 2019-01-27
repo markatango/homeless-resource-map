@@ -78,12 +78,12 @@ angular.module('gserviceForProviders', [])
 
                 // Create popup windows for each record
                 var contentString =
-                    '<p><b>Agency</b>: ' + provider.Agency +
-                    '<br><b>Service_Type</b>: ' + provider.Service_Type +
-                    '<br><b>Population</b>: ' + provider.Population +
-                    '<br><b>Street_Address</b>: ' + provider.Street_Address +
-                    '<br><b>City</b>: ' + provider.City +
-                    '<br><b>Phone</b>: ' + provider.Phone +
+                    '<h4 style="color:blue;">' + provider.Agency + '</h4>' + '\n' +
+                    '<p><b>Service_Type</b>: ' + provider.Service_Type + '\n' +
+                    '<br><b>Population</b>: ' + provider.Population +  '\n' +
+                    '<br><b>Street_Address</b>: ' + provider.Street_Address + '\n' +
+                    '<br><b>City</b>: ' + provider.City + '\n' +
+                    '<br><b>Phone</b>: ' + provider.Phone + '\n' +
                     '</p>';
 
                 // Converts each of the JSON records into Google Maps Location format.
@@ -149,7 +149,7 @@ angular.module('gserviceForProviders', [])
                 var marker = new google.maps.Marker({
                     position: n.latlon,
                     map: map,
-                    title: "Big Map",
+                    title: "Service provider",
                     icon: icon,
                 });
 
