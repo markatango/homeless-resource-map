@@ -6,46 +6,58 @@ var Schema = mongoose.Schema;
 // Creates a Provider Schema. This will be the basis of how user data is stored in the db
 var ProviderSchema = new Schema({
     Street_Address : {
-        type: String
+        type: String,
+        required : true
     },
 		Services : {
-        type: String
+        type: String,
+        required : true
     },
 		First_Name : {
-        type: String
+        type: String,
+        required : true
     },
 		Last_Name : {
-        type: String
+        type: String,
+        required : true
     },
 		Agency : {
-        type: String
+        type: String,
+        required : true
     },
 		Title : {
         type: String
     },
 		Service_Type : {
-        type: String
+        type: String,
+        required : true
     },
 		Population : {
-        type: String
+        type: String,
+        required : true
     },
 		Hours_of_operation : {
-        type: String
+        type: String,
+        required : true
     },
 		Suite_Floor_Dept_Room : {
         type: String
     },
 		State : {
-        type: String
+        type: String,
+        required : true
     },
 		City : {
-        type: String
+        type: String,
+        required : true
     },
 		Zip : {
-        type: Number
+        type: Number,
+        required : true
     },
 		Phone : {
-        type: String
+        type: String,
+        required : true
     },
 		Email : {
         type: String

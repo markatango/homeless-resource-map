@@ -11,24 +11,105 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     var lat = 0;
     var long = 0;
     
-    $scope.providerInfo = [
-        "Street_Address",
-        "Services",
-        "First_Name",
-        "Last_Name",
-        "Agency",
-        "Title",
-        "Service",
-        "Population",
-        "Hours_of_operation",
-        "Suite_Floor_Dept_Room",
-        "State",
-        "City",
-        "Zip",
-        "Phone",
-        "Email",
-        "Website"
+    var providerInfo = [
+    
+        {info: "Agency",
+         name: "Provider",
+         hint: "Community Services",
+         data: ""},
+
+        {info: "Services",
+         name: "Services",
+         hint: "Clothes, food distribution, etc",
+         data: ""},
+        
+        {info: "Service",
+         name: "Service",
+         hint: "123 Main St",
+         data: ""},
+        
+        {info: "Population",
+         name: "Population",
+         hint: "Adult males, over 18 years old",
+         data: ""},
+        
+        {info: "Hours_of_operation",
+         name: "Hours of operation",
+         hint: "8:00 am - 5:00 pm, M-Th",
+         data: ""},
+                 
+        {info: "Street_Address",
+         name: "Street address",
+         hint: "123 Main St",
+         data: ""},
+         
+        {info: "Suite_Floor_Dept_Room",
+         name: "Suite Floor Dept Room",
+         hint: "Unit A",
+         data: ""},
+ 
+        {info: "City",
+         name: "City",
+         hint: "Los Angeles",
+         data: ""},
+                
+        {info: "State",
+         name: "State",
+         hint: "State",
+         data: ""},
+        
+        {info: "Zip",
+         name: "Zip",
+         hint: "91234",
+         data: ""},
+        
+        {info: "Website",
+         name: "Website",
+         hint: "www.example.com",
+         data: ""}
        ];
+       
+   var contactInfo = [
+        {info: "Title",
+         name: "Title",
+         hint: "Salutation",
+         data: ""},
+        
+        {info: "First_Name",
+         name: "First name",
+         hint: "First",
+         data: ""},
+        
+        {info: "Last_Name",
+         name: "Last name",
+         hint: "Last",
+         data: ""},
+     
+        {info: "Phone",
+         name: "Phone",
+         hint: "626-555-1212",
+         data: ""},
+        
+        {info: "Email",
+         name: "Email",
+         hint: "user@example.com",
+         data: ""}
+       ];
+       
+   $scope.providerInfo = angular.copy(providerInfo);
+   
+   $scope.contactInfo = angular.copy(contactInfo);
+       
+   $scope.providerValues = {};
+ //  $scope.contactValues = {};
+   
+   $scope.$watch('providerValues', function (newValue, oldValue, scope) {
+    console.log(newValue);
+    }, true);
+    
+/*   $scope.$watch('contactValues', function (newValue, oldValue, scope) {
+    console.log(newValue);
+    }, true);*/
      
     // Set initial coordinates to the center of LA
     $scope.formData.latitude = 34.052;

@@ -27,12 +27,39 @@
                 "Website" : "NA",  -->
                 
             <form name = "addForm" novalidate>
-                                 
+                            <div ng-repeat="prov in providerInfo">   
                                 <div class="row">
                                 <div class="form-horizontal col-md-12">
                                 <div class="row">
-                                    <label for="Agency" class="col col-md-4 text-right">Service provider name *</label>
-                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder="Agency" ng-model="formData.Agency" required>
+                                    <label for="Agency" class="col col-md-4 text-right">{{ prov.name }} *</label>
+                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder={{prov.hint}} ng-model="prov.data" required>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class=col col-md-12>
+                                <h4 class="text-center">Contact information</h4>
+                                </div>
+                                </div>
+                                
+                             <div ng-repeat="contact in contactInfo">   
+                                <div class="row">
+                                <div class="form-horizontal col-md-12">
+                                <div class="row">
+                                    <label class="col col-md-4 text-right">{{ contact.name }} *</label>
+                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder={{contact.hint}} ng-model="contact.data" required>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <!--    <div class="row">
+                                <div class="form-horizontal col-md-12">
+                                <div class="row">
+                                    <label for="Service_Type" class="col-md-4 text-right">Service type *</label>                                   
+                                    <input type="text" class="form-control col-md-8" id="Service_Type" placeholder="Food distribution" ng-model="formData.Service_Type" required>
                                 </div>
                                 </div>
                                 </div>
@@ -40,8 +67,8 @@
                                 <div class="row">
                                 <div class="form-horizontal col-md-12">
                                 <div class="row">
-                                    <label for="Service_Type" class="col-md-4 text-right">Service type *</label>                                   
-                                    <input type="text" class="form-control col-md-8" id="Service_Type" placeholder="Food distribution" ng-model="formData.Service_Type" required>
+                                    <label for="Agency" class="col col-md-4 text-right">Service provider name *</label>
+                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder="Agency" ng-model="formData.Agency" required>
                                 </div>
                                 </div>
                                 </div>
@@ -177,8 +204,8 @@
                                     <input type="email" class="form-control col-md-8" id="Email" placeholder="user@example.com" ng-model="formData.Email" required>
                                 </div>
                                 </div>
-                                </div>
-                                
+                                </div> 
+                            </div> -->
                                 <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
                             </form>
         </div>

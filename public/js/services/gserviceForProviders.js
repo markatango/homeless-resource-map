@@ -124,7 +124,13 @@ angular.module('gserviceForProviders', [])
                     zoom: 10,
                     center: myLatLng
                 });
-                var ctaLayer = new google.maps.KmlLayer({
+                var ctaLayer = new google.maps.KmlLayer(
+                /* {
+                    url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
+                    map: map
+                } */
+                
+                {
                     url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
                     map: map
                 });
