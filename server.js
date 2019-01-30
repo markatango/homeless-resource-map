@@ -11,7 +11,7 @@ var app             = express();
 // Express Configuration
 // -----------------------------------------------------
 // Sets the connection to MongoDB
-mongoose.connect("mongodb://localhost:27018/homeless", {useNewUrlParser: true}).then(
+mongoose.connect("mongodb://localhost:27017/homeless", {useNewUrlParser: true}).then(
   () => { console.log("MongoDB is up and running.") },
   err => { 
 	console.log("Please start MongoDB and try again.");
