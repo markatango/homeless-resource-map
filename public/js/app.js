@@ -1,17 +1,29 @@
 // Declares the initial angular module "homelessResourceMap". Module grabs other controllers and services.
-var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'geolocation',  'gserviceForProviders', 'ngRoute'])
+var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'geolocation', 'gserviceForProviders', 'ngRoute'])
     // Configures Angular routing -- showing the relevant view and controller when needed.
     .config(function ($routeProvider) {
 
-        // Join Team Control Panel
         $routeProvider
+        // Join Team Control Panel
             .when('/join', {
             controller: 'addCtrl',
-            templateUrl: 'partials/addForm.html',
+            templateUrl: 'partials/addForm.html' 
 
-            // Find Teammates Control Panel
         })
-            /*.when('/find', {
+           // Show Services Control Panel
+            .when('/selecttype', {
+            controller: 'selectTypeCtrl',
+            templateUrl: 'partials/selectTypeForm.html'
+
+        })
+        
+            // All else forward to the Join Team Control Panel
+            .otherwise({
+            redirectTo: '/selecttype'
+        })
+    });
+    
+     /*.when('/find', {
             controller: 'queryCtrl',
             templateUrl: 'partials/queryForm.html',
 
@@ -29,13 +41,3 @@ var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'g
 
             // Select specific services to display
         })*/
-            .when('/selecttype', {
-            controller: 'selectTypeCtrl',
-            templateUrl: 'partials/selectTypeForm.html',
-
-            // All else forward to the Join Team Control Panel
-        })
-            .otherwise({
-            redirectTo: '/selecttype'
-        })
-    });

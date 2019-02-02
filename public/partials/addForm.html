@@ -1,213 +1,79 @@
 <!-- <div class="col-md-5"> -->
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-controller="addCtrl">
         <!-- Panel Title -->
         <div class="panel-heading">
             <h3 class="panel-title text-center">Add a service<span class="glyphicon glyphicon-map-marker"></span></h3>
-            <p class="text-center">* - required information<p>
+            <p class="text-center">* - required information</p>
         </div>
         <!-- Panel Body -->
-        <div class="panel-body" ng-controller="addCtrl">
-        
-        <!-- database fields 
-                "Street_Address" : "1 E. Regent St",
-                "Services" : "LS",
-                "First_Name" : "NA",
-                "Last_Name" : "NA",
-                "Agency" : "Inglewood Courthouse- Legal Aid Foundation of Los Angeles (LAFLA)",
-                "Title" : "NA",
-                "Service_Type" : "Low-cost legal service",
-                "Population" : "Low-income community",
-                "Hours_of_operation" : "Walk-ins Only: M, T, W, Th 9am-12pm, 1:30pm-4pm; Fri 9am-12pm",
-                "Suite_Floor_Dept_Room" : "#107",
-                "State" : "CA",
-                "City" : "Inglewood",
-                "Zip" : 90301,
-                "Phone" : "NA",
-                "Email" : "NA",
-                "Website" : "NA",  -->
+        <div class="panel-body">
+            
+            <!-- from stackoverflow 
+                <form name="userForm" novalidate>
+
+                  <div class="form-group" ng-repeat="user in formData.users" ng-class="{ 'has-error' : userFieldForm.email.$invalid }">
+                  <ng-form name="userFieldForm">
+                    <label>{{ user.name }}'s Email</label>
+                    <input type="text" class="form-control" name="email" ng-model="user.email" required>
+                    <p class="help-block" ng-show="userFieldForm.email.$invalid">Valid Email Address Required</p>
+                  </ng-form>
+                  </div>
+
+                </form>  -->
                 
             <form name = "addForm" novalidate>
-                            <div ng-repeat="prov in providerInfo">   
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Agency" class="col col-md-4 text-right">{{ prov.name }} *</label>
-                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder={{prov.hint}} ng-model="prov.data" required>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class=col col-md-12>
-                                <h4 class="text-center">Contact information</h4>
-                                </div>
-                                </div>
-                                
-                             <div ng-repeat="contact in contactInfo">   
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label class="col col-md-4 text-right">{{ contact.name }} *</label>
-                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder={{contact.hint}} ng-model="contact.data" required>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                            
-                            <!--    <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Service_Type" class="col-md-4 text-right">Service type *</label>                                   
-                                    <input type="text" class="form-control col-md-8" id="Service_Type" placeholder="Food distribution" ng-model="formData.Service_Type" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Agency" class="col col-md-4 text-right">Service provider name *</label>
-                                    <input type="text" class="form-control col-md-8" id="Agency" placeholder="Agency" ng-model="formData.Agency" required>
-                                </div>
-                                </div>
-                                </div>
-                              
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Services" class="col col-md-4 text-right">Services *</label>                                  
-                                    <textarea rows="4" cols="50" class="form-control col-md-8" id="Services" placeholder="Food distribution, and much more" ng-model="formData.Services" required></textarea>
-                                </div>
-                                </div>
-                                </div>
-                               
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Population" class="col-md-4 text-right">Population *</label>
-                                    <input type="text" class="form-control col-md-8" id="Population" placeholder="Men over age 21" ng-model="formData.Population" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Hours_of_operation" class="col-md-4 text-right">Hours of operation *</label>
-                                    <input type="text" class="form-control col-md-8" id="Hours_of_operation" placeholder="8:00 am - 5:00 pm" ng-model="formData.Hours_of_operation" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Street_Address" class="col-md-4 text-right">Street address *</label>
-                                    <input type="text" class="form-control col-md-8" id="Street_Address" placeholder="123 Main Street" ng-model="formData.Street_Address" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Suite_Floor_Dept_Room" class="col-md-4 text-right">Suite, Floor, Dept, Room *</label>
-                                    <input type="text" class="form-control col-md-8" id="Suite_Floor_Dept_Room" placeholder="Rm 345" ng-model="formData.Suite_Floor_Dept_Room" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="City" class="col-md-4 text-right">City *</label>
-                                    <input type="text" class="form-control col-md-8" id="City" placeholder="City" ng-model="formData.City" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="State" class="col-md-4 text-right">State *</label>
-                                    <input type="text" class="form-control col-md-8" id="State" placeholder="State" ng-model="formData.State" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Zip" class="col-md-4 text-right">Zip *</label>
-                                    <input type="text" class="form-control col-md-8" id="Zip" placeholder="00000" ng-model="formData.Zip" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Website" class="col-md-4 text-right">Website *</label>
-                                    <input type="text" class="form-control col-md-8" id="Website" placeholder="www.example.com" ng-model="formData.Website" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class=col col-md-12>
-                                <h4 class="text-center">Contact information</h4>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Title" class="col-md-4 text-right">Title *</label>
-                                    <input type="text" class="form-control col-md-8" id="Title" placeholder="Salutation" ng-model="formData.Title" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="First_Name" class="col-md-4 text-right">First name *</label>
-                                    <input type="text" class="form-control col-md-8" id="First_Name" placeholder="First name" ng-model="formData.First_Name" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Last_Name" class="col-md-4 text-right">Last name *</label>
-                                    <input type="text" class="form-control col-md-8" id="Last_Name" placeholder="Last name" ng-model="formData.Last_Name" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Phone" class="col-md-4 text-right">Phone *</label>
-                                    <input type="tel" class="form-control col-md-8" id="Phone" placeholder="800-555-1212" ng-model="formData.Phone" 
-                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="row">
-                                <div class="form-horizontal col-md-12">
-                                <div class="row">
-                                    <label for="Email" class="col-md-4 text-right">Email *</label>
-                                    <input type="email" class="form-control col-md-8" id="Email" placeholder="user@example.com" ng-model="formData.Email" required>
-                                </div>
-                                </div>
-                                </div> 
-                            </div> -->
-                                <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
-                            </form>
+                <div>   
+                    <div class="row">
+                    <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <label for="Agency" class="col col-md-4 text-right">{{ formData.name.name }} *</label>
+                        <input type="text" class="form-control col-md-8" id="name" placeholder={{formData.name.hint}} ng-model="formData.name.data" required>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+    
+                <div>   
+                    <div class="row">
+                    <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <label for="Services" class="col col-md-4 text-right">Services *</label>                          
+                        <textarea rows="4" cols="50" class="form-control col-md-8" id="Services" placeholder="Food distribution, and much more" ng-model="formData.Services.data" required></textarea>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div ng-repeat="prov in formData.restOfProviderInfo">   
+                    <div class="row">
+                    <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <label class="col col-md-4 text-right">{{ prov.name }} *</label>
+                        <input type="text" class="form-control col-md-8" id="Agency" placeholder={{prov.hint}} ng-model="prov.data" required>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class=col col-md-12>
+                        <h4 class="text-center">Contact information</h4>
+                    </div>
+                </div>
+                    
+                 <div ng-repeat="contact in formData.contactInfo">   
+                    <div class="row">
+                    <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <label class="col col-md-4 text-right">{{ contact.name }} *</label>
+                        <input type="text" class="form-control col-md-8" id="Agency" placeholder={{contact.hint}} ng-model="contact.data" required>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+
+                    <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+            </form>
         </div>
     </div>
 <!-- </div> -->
