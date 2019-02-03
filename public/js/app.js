@@ -4,22 +4,22 @@ var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'g
     .config(function ($routeProvider) {
 
         $routeProvider
-        // Join Team Control Panel
-            .when('/join', {
-            controller: 'addCtrl',
-            templateUrl: 'partials/addForm.html' 
+        
+            .when("/join", {
+            controller: "addCtrl",
+            templateUrl: 'partials/addForm.html' ,
 
         })
-           // Show Services Control Panel
+          
             .when('/selecttype', {
             controller: 'selectTypeCtrl',
-            templateUrl: 'partials/selectTypeForm.html'
+            templateUrl: 'partials/selectTypeForm.html',
 
         })
         
-            // All else forward to the Join Team Control Panel
+           
             .otherwise({
-            redirectTo: '/selecttype'
+            redirectTo: '/join',
         })
     });
     
