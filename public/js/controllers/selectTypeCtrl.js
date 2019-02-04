@@ -53,18 +53,18 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         var query = {Services: {$in: types}};
         var projection = {_id:0};
         
-        console.log("getLocations(" + types);
+        // console.log("getLocations(" + types);
         
         $http.post('/providerlocsbytype', {query, projection} )
         .success(function(queryResults){
-            console.log("query: ");
-            console.log(query);
-            console.log("projection: ");
-            console.log(projection);
+           // console.log("query: ");
+           // console.log(query);
+           // console.log("projection: ");
+           // console.log(projection);
             gserviceForProviders.refresh(latitude, longitude, queryResults)
             
         }).error(function (queryResults) {
-            console.log('Error ' + queryResults);
+            // console.log('Error ' + queryResults);
         });
         
     };
@@ -75,7 +75,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
     // keep track of selected services
     $scope.updateSel = function(ind, mne){
         var logMess = "updateSel(" + ind + ", " + mne  
-        console.log("updateSel(" + ind + ", " + mne + ")");
+        // console.log("updateSel(" + ind + ", " + mne + ")");
         if(mne){
             $scope.selected[mne] = $scope.selectTypeIndex[ind];
         if(!$scope.selected[mne]) delete $scope.selected[mne];

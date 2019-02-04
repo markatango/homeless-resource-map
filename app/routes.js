@@ -53,7 +53,8 @@ module.exports = function (app) {
         // Uses Mongoose schema to run the search (empty conditions)
         
         var query = Provider.find({}, {
-            /*Street_Address : 1,
+            Agency: 1,
+            Street_Address : 1,
             City : 1,
             Zip : 1,
             Phone : 1,
@@ -64,9 +65,7 @@ module.exports = function (app) {
             Service_Type : 1,
             Population : 1,
             Hours_of_operation : 1,
-            _id:0
-            ,
-          
+            _id:0,
             Last_Name : 0,
             Title : 0,
             Suite_Floor_Dept_Room : 0,
@@ -81,7 +80,7 @@ module.exports = function (app) {
             CensusBlockGroup : 0,
             CensusTract : 0,
             CensusCountyFips : 0,
-            CensusStateFips : 0 */
+            CensusStateFips : 0 
         });
         
        query.exec(function (err, results) {
@@ -118,6 +117,24 @@ module.exports = function (app) {
         });
     });
     
+    app.post('/providers', function (req, res) {
+
+        // Creates a new Provider based on the Mongoose schema and the post body
+        var newProvider = new Provider(req.body);
+        console.log(newProvider);
+        // New User is saved in the db.
+        newProvider.save(function (err) {
+            if (err) {
+                res.send("error" + err);
+            } 
+
+            // If no errors are found, it responds with a JSON of the new provider
+            else {
+                res.json(req.body);
+            }
+        });
+    }); 
+    
     app.post('/providerlocsbytype', function(req, res){
         var query = req.body.query;
 		console.log(util.inspect(req.body));
@@ -133,6 +150,8 @@ module.exports = function (app) {
         });
         
     });
+    
+ 
 
     // Retrieves JSON records for all users who meet a certain set of query conditions
     app.post('/query/', function (req, res) {

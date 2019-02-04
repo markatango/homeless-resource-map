@@ -11,7 +11,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     var lat = 0;
     var long = 0;
 
-  $scope.formData.name = 
+    $scope.formData.Agency = 
 
         {
             info: "Agency",
@@ -20,7 +20,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
             data: ""
         };
     
- $scope.formData.services = 
+    $scope.formData.Services = 
 
         {
             info: "Services",
@@ -28,102 +28,121 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
             hint: "Clothes, food distribution, etc",
             data: ""
         };
+        
+ /* $scope.formData.Street_Address = "";
+    $scope.formData.Services = "";
+    $scope.formData.First_Name = "";
+    $scope.formData.Last_Name = "";
+    $scope.formData.Agency = "";
+    $scope.formData.Title = "";
+    $scope.formData.Service_Type = "";
+    $scope.formData.Population = "";
+    $scope.formData.Hours_of_operation = "";
+    $scope.formData.Suite_Floor_Dept_Room = "";
+    $scope.formData.State = "";
+    $scope.formData.City = "";
+    $scope.formData.Zip = "";
+    $scope.formData.Phone = "";
+    $scope.formData.Email = "";
+    $scope.formData.Website = "";
+    $scope.formData.favlang = "";
+ */
     
- $scope.formData.restOfProviderInfo = [
+    $scope.formData.restOfProviderInfo = {
 
-        {
-            info: "Population",
-            name: "Population",
-            hint: "Adult males, over 18 years old",
-            data: ""
-        },
+         "Population" :   {
+                info: "Population",
+                name: "Population",
+                hint: "Adult males, over 18 years old",
+                data: ""
+            },
 
-        {
-            info: "Hours_of_operation",
-            name: "Hours of operation",
-            hint: "8:00 am - 5:00 pm, M-Th",
-            data: ""
-        },
+         "Hours_of_operation"   :   {
+                info: "Hours_of_operation",
+                name: "Hrs of operation",
+                hint: "8:00 am - 5:00 pm, M-Th",
+                data: ""
+            },
 
-        {
-            info: "Street_Address",
-            name: "Street address",
-            hint: "123 Main St",
-            data: ""
-        },
+         "Street_Address"   :   {
+                info: "Street_Address",
+                name: "Street address",
+                hint: "123 Main St",
+                data: ""
+            },
 
-        {
-            info: "Suite_Floor_Dept_Room",
-            name: "Suite Floor Dept Room",
-            hint: "Unit A",
-            data: ""
-        },
+         "Suite_Floor_Dept_Room"   :   {
+                info: "Suite_Floor_Dept_Room",
+                name: "Ste Floor Dept Rm",
+                hint: "Unit A",
+                data: ""
+            },
 
-        {
-            info: "City",
-            name: "City",
-            hint: "Los Angeles",
-            data: ""
-        },
+         "City"   :   {
+                info: "City",
+                name: "City",
+                hint: "Los Angeles",
+                data: ""
+            },
 
-        {
-            info: "State",
-            name: "State",
-            hint: "State",
-            data: ""
-        },
+         "State"   :   {
+                info: "State",
+                name: "State",
+                hint: "State",
+                data: ""
+            },
 
-        {
-            info: "Zip",
-            name: "Zip",
-            hint: "91234",
-            data: ""
-        },
+         "Zip"   :   {
+                info: "Zip",
+                name: "Zip",
+                hint: "91234",
+                data: ""
+            },
 
-        {
-            info: "Website",
-            name: "Website",
-            hint: "www.example.com",
-            data: ""
-        }
-       ];
+         "Website"   :   {
+                info: "Website",
+                name: "Website",
+                hint: "www.example.com",
+                data: ""
+            }
+        };
 
-$scope.formData.contactInfo = [
-        {
-            info: "Title",
-            name: "Title",
-            hint: "Salutation",
-            data: ""
-        },
+    $scope.formData.contactInfo = {
+         "Title"   :   {
+                info: "Title",
+                name: "Title",
+                hint: "Salutation",
+                data: ""
+            },
 
-        {
-            info: "First_Name",
-            name: "First name",
-            hint: "First",
-            data: ""
-        },
+         "First_Name" :  {
+                info: "First_Name",
+                name: "First name",
+                hint: "First",
+                data: ""
+            },
 
-        {
-            info: "Last_Name",
-            name: "Last name",
-            hint: "Last",
-            data: ""
-        },
+         "Last_Name" :  {
+                info: "Last_Name",
+                name: "Last name",
+                hint: "Last",
+                data: ""
+            },
 
-        {
-            info: "Phone",
-            name: "Phone",
-            hint: "626-555-1212",
-            data: ""
-        },
+         "Phone" :   {
+                info: "Phone",
+                name: "Phone",
+                hint: "626-555-1212",
+                data: ""
+            },
 
-        {
-            info: "Email",
-            name: "Email",
-            hint: "user@example.com",
-            data: ""
-        }
-       ];
+         "Email" :   {
+                info: "Email",
+                name: "Email",
+                hint: "user@example.com",
+                data: ""
+            }
+        };
 
     /*$scope.providerInfo = angular.copy(providerInfo);
 
@@ -185,9 +204,10 @@ $scope.formData.contactInfo = [
 
         // Grabs all of the text box fields
         var providerData = {
-            Agency: $scope.formData.restOfProviderInfo.Agency.data,           
-            Services: $scope.formData.restOfProviderInfo.Services.data,
-            Service_Type: $scope.formData.restOfProviderInfo.Service_Type.data,
+            Agency: $scope.formData.Agency.data,           
+            
+            Services: $scope.formData.Services.data,
+            
             Population: $scope.formData.restOfProviderInfo.Population.data,
             Hours_of_operation: $scope.formData.restOfProviderInfo.Hours_of_operation.data,
             Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
@@ -195,41 +215,48 @@ $scope.formData.contactInfo = [
             State: $scope.formData.restOfProviderInfo.State.data,
             City: $scope.formData.restOfProviderInfo.City.data,
             Zip: $scope.formData.restOfProviderInfo.Zip.data,
+            Website: $scope.formData.restOfProviderInfo.Website.data,            
             
             Title: $scope.formData.contactInfo.Title.data,
             First_Name: $scope.formData.contactInfo.First_Name.data,
             Last_Name: $scope.formData.contactInfo.Last_Name.data,
             Phone: $scope.formData.contactInfo.Phone.data,
             Email: $scope.formData.contactInfo.Email.data,
-            Website: $scope.formData.restOfProviderInfo.Website.data,
 
             favlang: $scope.formData.favlang,
             location: [$scope.formData.longitude, $scope.formData.latitude],
             htmlverified: $scope.formData.htmlverified
         };
+        
+        console.log(providerData);
 
         // Saves the provider data to the db
         $http.post('/providers', providerData)
             .then(function (data) {
+                console.log('Posted: ' + data);
 
                 // Once complete, clear the form (except location)
-                $scope.formData.Street_Address = "";
-                $scope.formData.Services = "";
-                $scope.formData.First_Name = "";
-                $scope.formData.Last_Name = "";
-                $scope.formData.Agency = "";
-                $scope.formData.Title = "";
-                $scope.formData.Service_Type = "";
-                $scope.formData.Population = "";
-                $scope.formData.Hours_of_operation = "";
-                $scope.formData.Suite_Floor_Dept_Room = "";
-                $scope.formData.State = "";
-                $scope.formData.City = "";
-                $scope.formData.Zip = "";
-                $scope.formData.Phone = "";
-                $scope.formData.Email = "";
-                $scope.formData.Website = "";
+                
+                $scope.formData.Agency.data = "";
+                $scope.formData.Services.data = "";
+                
+                $scope.formData.restOfProviderInfo.Population.data = "";
+                $scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
+                $scope.formData.restOfProviderInfo.Street_Address.data = "";
+                $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data = "";
+                $scope.formData.restOfProviderInfo.State.data = "";
+                $scope.formData.restOfProviderInfo.City.data = "";
+                $scope.formData.restOfProviderInfo.Zip.data = "";
+                $scope.formData.restOfProviderInfo.Website.data = "";
+                 
+                $scope.formData.contactInfo.Title.data = "";
+                $scope.formData.contactInfo.First_Name.data = "";
+                $scope.formData.contactInfo.Last_Name.data = "";
+                $scope.formData.contactInfo.Phone.data = "";
+                $scope.formData.contactInfo.Email.data = "";
+               
                 $scope.formData.favlang = "";
+                
 
                 // Refresh the map with new data
                 gserviceForProviders.refresh($scope.formData.latitude, $scope.formData.longitude);

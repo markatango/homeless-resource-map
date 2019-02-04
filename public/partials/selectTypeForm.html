@@ -4,7 +4,7 @@
 <!-- <div class="col-md-5"> -->
 
     <!-- Creates Main Panel -->
-    <div class="panel panel-default" ng-controller="selectTypeCtrl">
+    <div class="panel panel-default">
 
         <!-- Panel Title -->
         <div class="panel-heading">
@@ -16,14 +16,14 @@
 
             <!-- Creates Form -->
             <form name="selectTypeForm">
-                <div class="input-group">
-                    
+                <div class="input-group row">
+                    <div class="col col-md-12">
                     <span class="input-group" ng-repeat="type in provider_types"  >
                         <label>
                             <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}     
                         </label>
                     </span>
-                    
+                    </div>
                 </div>
             </form>
             <!-- <hr />

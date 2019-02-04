@@ -1,78 +1,52 @@
 <!-- <div class="col-md-5"> -->
-    <div class="panel panel-default" ng-controller="addCtrl">
+    <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h3 class="panel-title text-center">Add a service<span class="glyphicon glyphicon-map-marker"></span></h3>
-            <p class="text-center">* - required information</p>
+            <h3 class="panel-title text-left">Add a service<span class="glyphicon glyphicon-map-marker"></span></h3>
+            <p class="text-left">* - required information</p>
         </div>
         <!-- Panel Body -->
-        <div class="panel-body">
-            
-            <!-- from stackoverflow 
-                <form name="userForm" novalidate>
-
-                  <div class="form-group" ng-repeat="user in formData.users" ng-class="{ 'has-error' : userFieldForm.email.$invalid }">
-                  <ng-form name="userFieldForm">
-                    <label>{{ user.name }}'s Email</label>
-                    <input type="text" class="form-control" name="email" ng-model="user.email" required>
-                    <p class="help-block" ng-show="userFieldForm.email.$invalid">Valid Email Address Required</p>
-                  </ng-form>
-                  </div>
-
-                </form>  -->
-                
+        <div class="panel-body">     
             <form name = "addForm" novalidate>
-                <div>   
-                    <div class="row">
-                    <div class="form-horizontal col-md-12">
-                    <div class="row">
-                        <label for="Agency" class="col col-md-4 text-right">{{ formData.name.name }} *</label>
-                        <input type="text" class="form-control col-md-8" id="name" placeholder={{formData.name.hint}} ng-model="formData.name.data" required>
+                
+                <div class="form-group row">
+                    <label for="{{formData.Agency.name}}" class="col col-md-3 text-right">{{ formData.Agency.name }} *</label>
+                    <div class="col col-md-8">
+                    <input type="text" class="form-control" id="{{formData.Agency.name}}" placeholder="{{formData.Agency.hint}}" ng-model="formData.Agency.data" required> 
                     </div>
-                    </div>
-                    </div>
-                </div>
-    
-                <div>   
-                    <div class="row">
-                    <div class="form-horizontal col-md-12">
-                    <div class="row">
-                        <label for="Services" class="col col-md-4 text-right">Services *</label>                          
-                        <textarea rows="4" cols="50" class="form-control col-md-8" id="Services" placeholder="Food distribution, and much more" ng-model="formData.Services.data" required></textarea>
-                    </div>
-                    </div>
-                    </div>
+                    <div class="col col-md-1"></div>
                 </div>
                 
-                <div ng-repeat="prov in formData.restOfProviderInfo">   
-                    <div class="row">
-                    <div class="form-horizontal col-md-12">
-                    <div class="row">
-                        <label class="col col-md-4 text-right">{{ prov.name }} *</label>
-                        <input type="text" class="form-control col-md-8" id="Agency" placeholder={{prov.hint}} ng-model="prov.data" required>
+                <div class="form-group row">
+                    <label for="{{formData.Services.name}}" class="col col-md-3 text-right">{{ formData.Services.name }} *</label>  
+                    <div class="col col-md-8">                        
+                        <textarea rows="4" cols="50" class="form-control" id="{{formData.Services.name}}" placeholder="{{formData.Services.hint}}" ng-model="formData.Services.data" required></textarea>
                     </div>
-                    </div>
+                    <div class="col col-md-1"></div>
+                </div>
+                           
+                <div class="form-group row" style="top:0px;" ng-repeat="prov in formData.restOfProviderInfo">   
+                    <label for="{{prov.name}}" class="col col-md-3 text-right">{{ prov.name }} *</label>
+                    <div class="col col-md-8">  
+                        <input type="text" class="form-control" id="{{prov.name}}" placeholder="{{prov.hint}}" ng-model="prov.data" required>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class=col col-md-12>
+                    <div class="col col-md-12">
                         <h4 class="text-center">Contact information</h4>
                     </div>
                 </div>
                     
-                 <div ng-repeat="contact in formData.contactInfo">   
-                    <div class="row">
-                    <div class="form-horizontal col-md-12">
-                    <div class="row">
-                        <label class="col col-md-4 text-right">{{ contact.name }} *</label>
-                        <input type="text" class="form-control col-md-8" id="Agency" placeholder={{contact.hint}} ng-model="contact.data" required>
+                <div class="form-group row" ng-repeat="contact in formData.contactInfo">   
+                    <label class="col col-md-3 text-right">{{ contact.name }} *</label>
+                    <div class="col col-md-8"> 
+                        <input type="text" class="form-control" id="{{ contact.name }}" placeholder="{{contact.hint}}" ng-model="contact.data" required>
                     </div>
-                    </div>
-                    </div>
+                    <div class="col col-md-1"></div>
                 </div>
 
-                    <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                <button type="submit" class="btn btn-danger btn-block" ng-click="createProvider()" ng-disabled="addForm.$invalid">Submit</button>
             </form>
         </div>
     </div>

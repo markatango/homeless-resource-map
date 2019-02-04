@@ -63,6 +63,48 @@ angular.module('gserviceForProviders', [])
                     }).catch(function () {});
             }
         };
+        
+        
+        // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
+        googleMapServiceFP.geocode = function (latitude, longitude, filteredResults) {
+
+            //console.log("googleMapServiceFP.refresh" + latitude + " " + longitude + " " + filteredResults);
+
+            // Clears the holding array of locations
+            locations = [];
+
+            // Set the selected lat and long equal to the ones provided on the refresh() call
+            selectedLat = latitude;
+            selectedLong = longitude;
+
+            // If filtered results are provided in the refresh() call...
+            if (filteredResults) {
+                //console.log("attempting to get filteredResponse locations...");
+                // Then convert the filtered results into map points.
+                locations = convertToMapPoints(filteredResults);
+                //console.log("Locations: " + locations);
+
+                // Then, initialize the map -- noting that a filter was used (to mark icons yellow)
+                initialize(latitude, longitude, true);
+            }
+
+            // If no filter is provided in the refresh() call...
+            else {
+                //console.log("no filteredResults provided")
+                // Perform an AJAX call to get all of the records in the db.
+                $http.get('/providers', {})
+                    .then(function (response) {
+
+                        // Then convert the results into map points
+                        // console.log("attempting to get NO filteredResponse locations...");
+                        locations = convertToMapPoints(response);
+                        //console.log("locations from /providers GET: " + locations);
+
+                        // Then initialize the map -- noting that no filter was used.
+                        initialize(latitude, longitude, false);
+                    }).catch(function () {});
+            }
+        };
 
         // Private Inner Functions
         // --------------------------------------------------------------
@@ -105,7 +147,49 @@ angular.module('gserviceForProviders', [])
             // location is now an array populated with records in Google Maps format
             return locations;
         };
+        
+        /*https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDVY-JySqirt1qjSDkdfuhzrqv8-tq-z9A*/
+        
+        /*$http.get("/users", {
+              params: {
+                search: "phillip"
+              }
+            })*/
 
+       var constructGetAddressParams = function(providerData) {
+           let keyList = [
+               "Street_Address", 
+               "City",
+               "State"
+           ];
+           let pString = "";          
+           for (var key in keyList) {
+                if (providerDict.hasOwnProperty(key)) {
+                   pString += providerDict[key] + ' ';
+                }
+            }              
+           let address = {"address": pString};          
+           return address;
+       }
+       
+       /* var getGeocoordsFromAddress = function(providerData){
+           let address = constructGetAddressParams(providerData);
+           $http.get('/providerGeocode', {
+               params: address
+           }).
+           then(function(response){
+               var retObj = [];
+               if (response.status == "OK"){
+                   var location = response.results.geometry.location;
+                       retObj.lat = location.lat;
+                       retObj.lng = location.lng;
+               
+                $scope.geocoords = retObj;  
+               }
+           });
+           
+           
+       } */
 
         // Initializes the map
         var initialize = function (latitude, longitude, filter) {
