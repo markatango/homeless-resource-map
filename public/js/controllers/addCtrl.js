@@ -229,6 +229,10 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         };
         
         console.log(providerData);
+        $http.post('/geocode', providerData)
+            .then(function(result){
+                console.log(result)
+            });
 
         // Saves the provider data to the db
         $http.post('/providers', providerData)

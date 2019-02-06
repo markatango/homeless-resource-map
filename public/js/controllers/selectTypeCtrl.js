@@ -100,6 +100,17 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
         $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
     });*/
+    
+    geolocation.getLocation().then(function (data) {
+        coords = {
+            lat: data.coords.latitude,
+            long: data.coords.longitude
+        };
+
+        // Set the latitude and longitude equal to the HTML5 coordinates
+        $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
+        $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
+    });
 
     // Get coordinates based on mouse click. When a click event is detected....
     $rootScope.$on("clicked", function () {

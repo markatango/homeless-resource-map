@@ -5,6 +5,9 @@ var User = require('./models/user.js');
 var Provider = require('./models/provider.js');
 var Provider_type = require('./models/provider_type.js');
 var util = require("util");
+var secrets = require("./secrets/secrets");
+
+var googleKey = secrets().googleKey;
 
 // Opens App Routes
 module.exports = function (app) {
@@ -84,16 +87,16 @@ module.exports = function (app) {
         });
         
        query.exec(function (err, results) {
-            if (err)
+            if (err) {
                 res.send(err);
-
-            // If no errors are found, it responds with a JSON of all providers
-            if(results) {
-                res.json(results); 
             } else {
-                res.json({message:"No providers found"});// orig
-            };
-
+                // If no errors are found, it responds with a JSON of all providers
+                if(results) {
+                    res.json(results); 
+                } else {
+                    res.json({message:"No providers found"});// orig
+                };
+            }
         });
     });
 
@@ -149,6 +152,37 @@ module.exports = function (app) {
             res.json(locations);
         });
         
+    });
+    
+    app.post('/geocode', function(req,res){
+        var inaddress = req.body;
+        console.log(req.body);
+        var keyList = [
+            "Street_Address", 
+            "City",
+            "State"
+        ];
+           
+        var pString = "";          
+        var i = 0
+        for (var key in keyList) {
+            pString += inaddress[keyList[key]] + ' ';
+        }
+ 
+        const googleMapsClient2 = require('@google/maps').createClient({
+               key: googleKey,
+               Promise: Promise
+        });
+
+        googleMapsClient2.geocode({address: pString})
+            .asPromise()
+            .then((response) => {
+                res.send(response.json.results[0].geometry.location)
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send(err);
+          });            
     });
     
  
