@@ -67,7 +67,10 @@ module.exports = function (app) {
             Agency : 1,
             Service_Type : 1,
             Population : 1,
-            Hours_of_operation : 1,
+            Hours_of_operation : 1
+        });
+        
+       /* ,
             _id:0,
             Last_Name : 0,
             Title : 0,
@@ -83,8 +86,7 @@ module.exports = function (app) {
             CensusBlockGroup : 0,
             CensusTract : 0,
             CensusCountyFips : 0,
-            CensusStateFips : 0 
-        });
+            CensusStateFips : 0 */
         
        query.exec(function (err, results) {
             if (err) {
@@ -124,7 +126,7 @@ module.exports = function (app) {
 
         // Creates a new Provider based on the Mongoose schema and the post body
         var newProvider = new Provider(req.body);
-        console.log(newProvider);
+        console.log("posting new Provider: " + newProvider);
         // New User is saved in the db.
         newProvider.save(function (err) {
             if (err) {
@@ -155,18 +157,16 @@ module.exports = function (app) {
     });
     
     app.post('/geocode', function(req,res){
+        
+       /*from census.gov: https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=1340%20Mayflower%20ave%20arcadia,%20ca&format=json&benchmark=9 
+       */
         var inaddress = req.body;
         console.log(req.body);
-        var keyList = [
-            "Street_Address", 
-            "City",
-            "State"
-        ];
            
         var pString = "";          
         var i = 0
-        for (var key in keyList) {
-            pString += inaddress[keyList[key]] + ' ';
+        for (var key in inaddress) {
+            pString += inaddress[key] + ' ';
         }
  
         const googleMapsClient2 = require('@google/maps').createClient({
@@ -185,7 +185,6 @@ module.exports = function (app) {
           });            
     });
     
- 
 
     // Retrieves JSON records for all users who meet a certain set of query conditions
     app.post('/query/', function (req, res) {

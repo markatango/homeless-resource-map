@@ -65,8 +65,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
             
         }).error(function (queryResults) {
             // console.log('Error ' + queryResults);
-        });
-        
+        });       
     };
     
     // Public functions
@@ -85,8 +84,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
             if(!u) delete $scope.selected[u];
         }*/
         $scope.selectedKeys = Object.keys($scope.selected);
-        getLocations($scope.selectedKeys);
-        
+        getLocations($scope.selectedKeys);  
     };
     
     // Get User's actual coordinates based on HTML5 at window load
@@ -121,9 +119,4 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
             $scope.formData.longitude = parseFloat(gserviceForProviders.clickLong).toFixed(3);
         });
     });
-    
-    
-
-    
-   
 });

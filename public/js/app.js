@@ -5,21 +5,16 @@ var app = angular.module('homelessResourceMap', ['selectTypeCtrl', 'addCtrl', 'g
 
         $routeProvider
         
-            .when("/join", {
-            controller: "addCtrl",
-            templateUrl: 'partials/addForm.html' ,
-
-        })
-          
             .when('/selecttype', {
             controller: 'selectTypeCtrl',
             templateUrl: 'partials/selectTypeForm.html',
-
         })
-        
-           
+            .when("/join", {
+            controller: "addCtrl",
+            templateUrl: 'partials/addForm.html' ,
+        })
             .otherwise({
-            redirectTo: '/join',
+            redirectTo: '/selecttype',
         })
     });
     

@@ -33,20 +33,33 @@ queryCtrl.controller('queryCtrl', function ($scope, $log, $http, $rootScope, geo
     });
 
     // Take query parameters and incorporate into a JSON queryBody
-    $scope.queryUsers = function () {
+    $scope.queryProviders = function () {
 
         // Assemble Query Body
         queryBody = {
-            longitude: parseFloat($scope.formData.longitude),
-            latitude: parseFloat($scope.formData.latitude),
-            distance: parseFloat($scope.formData.distance),
-            male: $scope.formData.male,
-            female: $scope.formData.female,
-            other: $scope.formData.other,
-            minAge: $scope.formData.minage,
-            maxAge: $scope.formData.maxage,
+            Agency: $scope.formData.Agency.data,           
+            Service_Type: $scope.formData.Service_Type.data,
+            Services: $scope.formData.Services.data,
+            
+            Population: $scope.formData.restOfProviderInfo.Population.data,
+            Hours_of_operation: $scope.formData.restOfProviderInfo.Hours_of_operation.data,
+            Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
+            Suite_Floor_Dept_Room: $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data,
+            State: $scope.formData.restOfProviderInfo.State.data,
+            City: $scope.formData.restOfProviderInfo.City.data,
+            Zip: $scope.formData.restOfProviderInfo.Zip.data,
+            Website: $scope.formData.restOfProviderInfo.Website.data,            
+            
+            Title: $scope.formData.contactInfo.Title.data,
+            First_Name: $scope.formData.contactInfo.First_Name.data,
+            Last_Name: $scope.formData.contactInfo.Last_Name.data,
+            Phone: $scope.formData.contactInfo.Phone.data,
+            Email: $scope.formData.contactInfo.Email.data,
+
             favlang: $scope.formData.favlang,
-            reqVerified: $scope.formData.verified
+            longitude: $scope.formData.longitude
+            latitude: $scope.formData.latitude,
+            htmlverified: $scope.formData.htmlverified
         };
 
         // Post the queryBody to the /query POST route to retrieve the filtered results
