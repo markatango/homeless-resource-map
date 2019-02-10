@@ -57,10 +57,10 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         
         $http.post('/providerlocsbytype', {query, projection} )
         .success(function(queryResults){
-            /*console.log("query: ");
+            console.log("query: ");
             console.log(query);
             console.log("projection: ");
-            console.log(projection);*/
+            console.log(projection);
             gserviceForProviders.refresh(latitude, longitude, queryResults)
             
         }).error(function (queryResults) {

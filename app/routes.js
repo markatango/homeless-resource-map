@@ -90,6 +90,7 @@ module.exports = function (app) {
 
             // If no errors are found, it responds with a JSON of all providers
             if(results) {
+				console.log(results)
                 res.json(results); 
             } else {
                 res.json({message:"No providers found"});// orig
