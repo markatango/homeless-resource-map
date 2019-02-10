@@ -40,58 +40,39 @@
 
     <!-- Controllers -->
     <script src="./js/app.js"></script>
-    <script src="./js/controllers/selectTypeCtrl.js"></script>
 
     <script src="./js/controllers/addCtrl.js"></script>
     <!-- <script src="./js/controllers/queryCtrl.js"></script> -->
 
+    <script src="./js/controllers/selectTypeCtrl.js"></script>
 
     <!-- Geolocation service script -->
     <script src="js/services/gservice.js"></script>
     <script src="js/services/gserviceForProviders.js"></script>
 
     <script src="./js/misc/tooltips.js"></script>
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+        }
+
+        /* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
+
+        .form-horizontal .control-label {
+            padding-top: 7px;
+        }
+
+    </style>
     <script>document.write('<base href="' + document.location + '" />');</script> 
 </head>
 
 <body ng-app="homelessResourceMap">
-    <div class="jumbotron">
-        <h1>Homeless population distribution and service locations</h1>
-        <p>Comparing locations of services for the homeless with locations of homeless persons</p>
+    <div id="map" class="col col-md-6" style="width:300px; height:600px">Map goes here</div>
+    <div>   
+        <a href="#/join" class="nav-link" data-toggle="pill">Add a service</a>
+        <a href="#/list" class="nav-link" data-toggle="pill">List services</a>
+        <a href="#/selecttype" class="nav-link active" data-toggle="pill">Find a service</a>
     </div>
-    <div class="container-fluid">
-        <!-- Map and Side Panel -->
-        <div class="row">
-            <div class="col col-md-12" style="left:20px; position:relative">
-                <!-- Google Map -->
-                <div class="row">
-                    <div id="map" class="col col-md-6" style="width:300px; height:600px">Map goes here</div>
-                    <!-- Side Panel -->
-                    <div class="col col-md-6">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item" id="find"><a class="nav-link active" data-toggle="pill" href="#selecttype">Find a service</a></li>
-                            <li class="nav-item" id="add"><a class="nav-link" data-toggle="pill" href="#join">Add a service</a></li>
-                            <li class="nav-item" id="list"><a class="nav-link" data-toggle="pill" href="#selecttype">List services</a></li>
-                        </ul>
-                        <div ng-view></div>
-                     <!--   </div> -->
-                    </div>
-                    <!-- right side col 6 -->
-                </div>
-                <!-- row -->
-            </div>
-        </div>
-        <!-- row -->
-    </div>
-    <!-- container -->
-
-    <hr/>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p class="text-center"><span class="glyphicon glyphicon-check"></span> After Ahmed Haque for Scotch IO -
-            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p>
-    </div>
+    <div ng-view></div>
 </body>
-
 </html>

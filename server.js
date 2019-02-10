@@ -11,7 +11,15 @@ var app             = express();
 // Express Configuration
 // -----------------------------------------------------
 // Sets the connection to MongoDB
-mongoose.connect("mongodb://localhost/homeless");
+mongoose.connect("mongodb://localhost:27017/homeless", {useNewUrlParser: true}).then(
+  () => { console.log("MongoDB is up and running.") },
+  err => { 
+	console.log("Please start MongoDB and try again.");
+	process.exit(1);
+	/* const spawn = require('child_process').spawn;
+    const pipe = spawn('mongod')
+	mongoose.connect("mongodb://localhost/homeless", {useNewUrlParser: true}) */
+});
 
 // Logging and Parsing
 app.use(express.static(__dirname + '/public'));                 // sets the static files location to public

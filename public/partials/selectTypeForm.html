@@ -1,14 +1,14 @@
 <!-- selectTypeForm.html -->
 
-<!-- Select a service type-->
-<div class="col-md-5">
+<!-- Select a service type -->
+<!-- <div class="col-md-5"> -->
 
     <!-- Creates Main Panel -->
     <div class="panel panel-default">
 
         <!-- Panel Title -->
         <div class="panel-heading">
-            <h2 class="panel-title text-center">Select a service</span></h2>
+            <h3 class="panel-title text-left">Select a service</span></h3>
         </div>
 
         <!-- Panel Body -->
@@ -16,24 +16,16 @@
 
             <!-- Creates Form -->
             <form name="selectTypeForm">
-                <div class="input-group">
-                    
+                <div class="input-group row">
+                    <div class="col col-md-12">
                     <span class="input-group" ng-repeat="type in provider_types"  >
-                        
-                        <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}                        
+                        <label>
+                            <input type="checkbox" name="selectProvType" ng-model="selectTypeIndex[provider_types.indexOf(type)]" ng-change="updateSel(provider_types.indexOf(type), type.mne)" > {{type.shortDes}}     
+                        </label>
                     </span>
-                    
+                    </div>
                 </div>
             </form>
-            <hr />
-            <p>{{selectedKeys}}</p>
-            <ul>
-                <li ng-repeat="mne in selected">{{mne}}</li>
-            </ul>
-            
-            <p>{{selectTypeIndex}}</p>
-           
-            
             
         </div>
 
@@ -42,4 +34,4 @@
             <p class="text-center">Hot Dang! We Found {{queryCount}} Teammates.</p>
         </div> -->
     </div>
-</div>
+<!-- </div> -->

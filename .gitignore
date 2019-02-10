@@ -2,4 +2,9 @@ vendor/
 node_modules/
 bower_components/
 app/data/
+nohup.out
+public/js/services/notes.txt
+app/secrets/
+app/serverassets/
+public/assets/
 

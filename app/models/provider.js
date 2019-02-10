@@ -5,47 +5,59 @@ var Schema = mongoose.Schema;
 
 // Creates a Provider Schema. This will be the basis of how user data is stored in the db
 var ProviderSchema = new Schema({
-    Street_Address : {
-        type: String
+        Street_Address : {
+        type: String,
+        required : false
     },
 		Services : {
-        type: String
+        type: String,
+        required : false
     },
 		First_Name : {
-        type: String
+        type: String,
+        required : false
     },
 		Last_Name : {
-        type: String
+        type: String,
+        required : false
     },
 		Agency : {
-        type: String
+        type: String,
+        required : true
     },
 		Title : {
         type: String
     },
 		Service_Type : {
-        type: String
+        type: String,
+        required : false
     },
 		Population : {
-        type: String
+        type: String,
+        required : false
     },
 		Hours_of_operation : {
-        type: String
+        type: String,
+        required : false
     },
 		Suite_Floor_Dept_Room : {
         type: String
     },
 		State : {
-        type: String
+        type: String,
+        required : false
     },
 		City : {
-        type: String
+        type: String,
+        required : false
     },
 		Zip : {
-        type: Number
+        type: Number,
+        required : false
     },
 		Phone : {
-        type: String
+        type: String,
+        required : false
     },
 		Email : {
         type: String
@@ -95,18 +107,25 @@ var ProviderSchema = new Schema({
 		CensusStateFips : {
         type: Number
     },
-    updated_at: {
+        updated_at: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
+    },
+        created_at: {
+        type: Date
     }
 });
 
 // Sets the created_at parameter equal to the current time
 ProviderSchema.pre('save', function (next) {
+    console.log("in pre...");
     now = new Date();
+    console.log("creating a document: " + now);
     this.updated_at = now;
     if (!this.created_at) {
-        this.created_at = now
+        this.created_at = now;
+        console.log("creating...");
     }
     next();
 });

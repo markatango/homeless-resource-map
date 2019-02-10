@@ -1,0 +1,250 @@
+<!doctype html5>
+<!-- Declares meanMapApp as the starting Angular module -->
+<html class="no-js" ng-app="homelessResourceMap">
+
+<head>
+    <meta charset="utf-8">
+    <title>Homelessness Resource Locator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <!-- <meta name="description" content="Google Map in a MEAN App"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- LESS 
+    <link rel="stylesheet/less" type="text/css" href="assets/styles.less" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script> -->
+     
+    <!-- CSS -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- <link rel="stylesheet" href="assets/styles.css" /> -->
+    <link rel="stylesheet" href="assets/style.css" />
+    
+    <!-- Holder JS -->
+    <script src="../bower_components/holderjs/holder.js"></script>
+    
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrn605l7RPadiwdzsOlRw9O28lxfYBJ6s"></script>
+    
+    <!-- Modernizr -->
+    <script src="../bower_components/modernizr/bin/modernizr"></script>
+    
+    <!-- JS Source -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <!-- jQuery library -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    
+    <!-- Controllers -->
+    <script src="./js/app.js"></script>
+    
+    <script src="./js/controllers/addCtrl.js"></script>
+    <!-- <script src="./js/controllers/queryCtrl.js"></script> -->
+    
+    <script src="./js/controllers/selectTypeCtrl.js"></script>
+
+    
+    <!-- Geolocation service script -->
+   <!-- <script src="js/services/gservice.js"></script> -->
+    <script src="js/services/gserviceForProviders.js"></script>
+    
+    <script src="./js/misc/tooltips.js"></script>
+    <style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+	/* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
+    .form-horizontal .control-label{
+        padding-top: 7px;
+    }
+    </style>
+</head>
+
+<body>
+<div class="jumbotron">
+    <h1>Homeless population distribution and service locations</h1>
+    <p>Comparing locations of services for the homeless with locations of homeless persons</p>
+</div>
+<div class="container-fluid"> 
+    <!-- Map and Side Panel -->
+    <div class="row"> 
+        <div class="col-md-12" style="left:20px; position:relative">
+            <!-- Google Map -->
+            <div class="row"> 
+                <div id="map" style="width:300px; height:600px" class="col-md-6"></div>
+                <!-- Side Panel -->
+                <div class="col-md-6">
+                    <div class="row"> 
+                        <div class="col-md-12">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link" data-toggle="pill" href="/#/join">   Add a service</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="pill" href="/#/find">   Find a service</a></li> 
+                            <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="/#/selecttype">   Select a service</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <!-- <div ng-view class="col-md-12"></div> -->
+                        <div class="col-md-12">
+                             <!-- <div class="col col-md-6"> -->
+                            <form name = "addForm" novalidate>
+                                 <div class="row">   
+                                <div class="form-horizontal">
+                                    <label for="Agency" class="control-label col-md-3">Provider type</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="Agency" placeholder="Agency" ng-model="formData.Agency" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Services" class="control-label col-md-3">Services *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Services" placeholder="OldandGold" ng-model="formData.Services" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Service_Type" class="control-label col-md-3">Service_Type *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Service_Type" placeholder="OldandGold" ng-model="formData.Service_Type" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Population" class="control-label col-md-3">Population *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Population" placeholder="OldandGold" ng-model="formData.Population" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Hours_of_operation" class="control-label col-md-3">Hours_of_operation *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Hours_of_operation" placeholder="OldandGold" ng-model="formData.Hours_of_operation" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Street_Address" class="control-label col-md-3">Street_Address *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Street_Address" placeholder="OldandGold" ng-model="formData.Street_Address" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Suite_Floor_Dept_Room" class="control-label col-md-3">Suite_Floor_Dept_Room *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Suite_Floor_Dept_Room" placeholder="OldandGold" ng-model="formData.Suite_Floor_Dept_Room" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="City" class="control-label col-md-3">City *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="City" placeholder="OldandGold" ng-model="formData.City" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="State" class="control-label col-md-3">State *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="State" placeholder="OldandGold" ng-model="formData.State" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Zip" class="control-label col-md-3">Zip *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Zip" placeholder="OldandGold" ng-model="formData.Zip" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Website" class="control-label col-md-3">Website *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Website" placeholder="OldandGold" ng-model="formData.Website" required>
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                <div class="row">
+                                <div class=col col-md-12>
+                                <h4 class="text-center">Contact information</h4>
+                                </div>
+                                </div>
+                                
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Title" class="control-label col-md-3">Title *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Title" placeholder="OldandGold" ng-model="formData.Title" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="First_Name" class="control-label col-md-3">First_Name *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="First_Name" placeholder="OldandGold" ng-model="formData.First_Name" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Last_Name" class="control-label col-md-3">Last_Name *</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="Last_Name" placeholder="OldandGold" ng-model="formData.Last_Name" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Phone" class="control-label col-md-3">Phone *</label>
+                                    <div class="col-md-9">
+                                    <input type="tel" class="form-control" id="Phone" placeholder="800-555-1212" ng-model="formData.Phone" 
+                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="form-horizontal">
+                                    <label for="Email" class="control-label col-md-3">Email *</label>
+                                    <div class="col-md-9">
+                                    <input type="email" class="form-control" id="Email" placeholder="user@example.com" ng-model="formData.Email" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
+                            </form>
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- right side col 6 -->
+            </div> <!-- row -->
+        </div>
+    </div> <!-- row -->
+</div> <!-- container -->
+
+    <hr/>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p class="text-center"><span class="glyphicon glyphicon-check"></span> After Ahmed Haque for Scotch IO -
+            <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a></p> 
+    </div>
+    </div>
+</body>
+    
+</html>

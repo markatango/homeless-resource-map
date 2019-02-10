@@ -1,4 +1,4 @@
-// Creates the selectTypeCtrl Module and Controller. Note that it depends on 'geolocation' and 'gservice' modules.
+// Creates the selectTypeCtrl Module and Controller. Note that it depends on 'geolocation' and 'gserviceForProviders' modules.
 var selectTypeCtrl = angular.module('selectTypeCtrl', ['geolocation','gserviceForProviders']);
 selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $rootScope, geolocation, gserviceForProviders) {
 
@@ -42,7 +42,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
     // Functions
     // ----------------------------------------------------------------------------
    
-    // get locactions for selected provider types
+    // get locations for selected provider types
     // Private Inner Functions
     // --------------------------------------------------------------
     getLocations = function(types){
@@ -53,20 +53,19 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         var query = {Services: {$in: types}};
         var projection = {_id:0};
         
-       // console.log("getLocations(" + types);
+        // console.log("getLocations(" + types);
         
         $http.post('/providerlocsbytype', {query, projection} )
         .success(function(queryResults){
-            console.log("query: ");
-            console.log(query);
-            console.log("projection: ");
-            console.log(projection);
+           // console.log("query: ");
+           // console.log(query);
+           // console.log("projection: ");
+           // console.log(projection);
             gserviceForProviders.refresh(latitude, longitude, queryResults)
             
         }).error(function (queryResults) {
-            console.log('Error ' + queryResults);
-        });
-        
+            // console.log('Error ' + queryResults);
+        });       
     };
     
     // Public functions
@@ -75,7 +74,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
     // keep track of selected services
     $scope.updateSel = function(ind, mne){
         var logMess = "updateSel(" + ind + ", " + mne  
-        console.log("updateSel(" + ind + ", " + mne + ")");
+        // console.log("updateSel(" + ind + ", " + mne + ")");
         if(mne){
             $scope.selected[mne] = $scope.selectTypeIndex[ind];
         if(!$scope.selected[mne]) delete $scope.selected[mne];
@@ -85,8 +84,7 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
             if(!u) delete $scope.selected[u];
         }*/
         $scope.selectedKeys = Object.keys($scope.selected);
-        getLocations($scope.selectedKeys);
-        
+        getLocations($scope.selectedKeys);  
     };
     
     // Get User's actual coordinates based on HTML5 at window load
@@ -100,19 +98,25 @@ selectTypeCtrl.controller('selectTypeCtrl', function ($scope, $log, $http, $root
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
         $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
     });*/
+    
+    geolocation.getLocation().then(function (data) {
+        coords = {
+            lat: data.coords.latitude,
+            long: data.coords.longitude
+        };
+
+        // Set the latitude and longitude equal to the HTML5 coordinates
+        $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
+        $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
+    });
 
     // Get coordinates based on mouse click. When a click event is detected....
     $rootScope.$on("clicked", function () {
 
-        // Run the gservice functions associated with identifying coordinates
+        // Run the gserviceForProviders functions associated with identifying coordinates
         $scope.$apply(function () {
             $scope.formData.latitude = parseFloat(gserviceForProviders.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(gserviceForProviders.clickLong).toFixed(3);
         });
     });
-    
-    
-
-    
-   
 });

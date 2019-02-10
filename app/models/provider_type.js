@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Creates a User Schema. This will be the basis of how user data is stored in the db
+// Creates a Provider_type Schema. This will be the basis of how user data is stored in the db
 var ProviderTypeSchema = new Schema({
     mne: {
         type: String,

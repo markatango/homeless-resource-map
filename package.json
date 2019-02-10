@@ -4,7 +4,10 @@
   "description": "Interactive map showing approximate homeless population density by census tract and locations of service providers",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "mongod --fork --port 27018 --logpath /dev/null",
+    "start": "node server.js",
+    "poststop": "mongo admin --eval 'db.shutdownServer()' > /dev/null"
   },
   "keywords": [
     "Homelessness",
@@ -14,14 +17,23 @@
     "Hack4LA"
   ],
   "dependencies": {
-    "body-parser": "~1.5.2",
-    "express": "~4.7.2",
+    "@google/maps": "^0.5.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "holderjs": "^2.9.4",
     "jsonwebtoken": "^5.0.2",
     "method-override": "~2.1.2",
     "mongoose": ">=4.3.0",
-    "morgan": "~1.2.2"
+    "morgan": "^1.9.1"
   },
   "author": "Mark Rodighiero",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markatango/homeless-resource-map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markatango/homeless-resource-map/issues"
+  },
+  "homepage": "https://github.com/markatango/homeless-resource-map#readme"
 }

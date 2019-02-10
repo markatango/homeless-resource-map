@@ -14,9 +14,9 @@ angular.module('gserviceForProviders', [])
         // Array of locations obtained from API calls
         var locations = [];
 
-        // Selected Location (initialize to center of America)
+        // Selected Location (initialize to center of Los Angeles)
         var selectedLat = 34.045;
-        var selectedLong = -118.240;
+        var selectedLong = -118.006355;
 
 
 
@@ -51,7 +51,7 @@ angular.module('gserviceForProviders', [])
                 //console.log("no filteredResults provided")
                 // Perform an AJAX call to get all of the records in the db.
                 $http.get('/providers', {})
-                    .success(function (response) {
+                    .then(function (response) {
 
                         // Then convert the results into map points
                         // console.log("attempting to get NO filteredResponse locations...");
@@ -60,9 +60,26 @@ angular.module('gserviceForProviders', [])
 
                         // Then initialize the map -- noting that no filter was used.
                         initialize(latitude, longitude, false);
-                    }).error(function () {});
+                    }).catch(function () {});
             }
         };
+        
+        
+        // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
+        googleMapServiceFP.geocode = function (providerData) {
+
+                $http.post('/geocode', {providerData})
+                    .then(function (response) {
+
+                        // Then convert the results into map points
+                        // console.log("attempting to get NO filteredResponse locations...");
+                        // locations = convertToMapPoints(response);
+                        //console.log("locations from /providers GET: " + locations);
+
+                        // Then initialize the map -- noting that no filter was used.
+                        initialize(latitude, longitude, false);
+                    }).catch(function () {});
+            };
 
         // Private Inner Functions
         // --------------------------------------------------------------
@@ -78,12 +95,12 @@ angular.module('gserviceForProviders', [])
 
                 // Create popup windows for each record
                 var contentString =
-                    '<p><b>Agency</b>: ' + provider.Agency +
-                    '<br><b>Service_Type</b>: ' + provider.Service_Type +
-                    '<br><b>Population</b>: ' + provider.Population +
-                    '<br><b>Street_Address</b>: ' + provider.Street_Address +
-                    '<br><b>City</b>: ' + provider.City +
-                    '<br><b>Phone</b>: ' + provider.Phone +
+                    '<h4 style="color:blue;">' + provider.Agency + '</h4>' + '\n' +
+                    '<p><b>Service_Type</b>: ' + provider.Service_Type + '\n' +
+                    '<br><b>Population</b>: ' + provider.Population +  '\n' +
+                    '<br><b>Street_Address</b>: ' + provider.Street_Address + '\n' +
+                    '<br><b>City</b>: ' + provider.City + '\n' +
+                    '<br><b>Phone</b>: ' + provider.Phone + '\n' +
                     '</p>';
 
                 // Converts each of the JSON records into Google Maps Location format.
@@ -106,6 +123,25 @@ angular.module('gserviceForProviders', [])
             return locations;
         };
 
+  
+        var getGeocoordsFromAddress = function(providerData){
+           
+           $http.post('/providerGeocode', {
+               params: address
+           }).
+           then(function(response){
+               var retObj = [];
+               if (response.status == "OK"){
+                   var location = response.results.geometry.location;
+                       retObj.lat = location.lat;
+                       retObj.lng = location.lng;
+               
+                $scope.geocoords = retObj;  
+               }
+           });
+           
+           
+       } 
 
         // Initializes the map
         var initialize = function (latitude, longitude, filter) {
@@ -124,10 +160,17 @@ angular.module('gserviceForProviders', [])
                     zoom: 10,
                     center: myLatLng
                 });
-                var ctaLayer = new google.maps.KmlLayer({
-                    url: 'http://markatango.com/kml/kmlfiles/ctaLAshort.kml',
+                var ctaLayer = new google.maps.KmlLayer(
+                /* {
+                    url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
+                    map: map
+                } */
+                
+                {
+                    url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
                     map: map
                 });
+                
 
             }
             google.maps.event.addListener(ctaLayer, 'click', function (kmlEvent) {
@@ -148,7 +191,7 @@ angular.module('gserviceForProviders', [])
                 var marker = new google.maps.Marker({
                     position: n.latlon,
                     map: map,
-                    title: "Big Map",
+                    title: "Service provider",
                     icon: icon,
                 });
 

@@ -5,6 +5,9 @@ var User = require('./models/user.js');
 var Provider = require('./models/provider.js');
 var Provider_type = require('./models/provider_type.js');
 var util = require("util");
+var secrets = require("./secrets/secrets");
+
+var googleKey = secrets().googleKey;
 
 // Opens App Routes
 module.exports = function (app) {
@@ -53,7 +56,8 @@ module.exports = function (app) {
         // Uses Mongoose schema to run the search (empty conditions)
         
         var query = Provider.find({}, {
-            /*Street_Address : 1,
+            Agency: 1,
+            Street_Address : 1,
             City : 1,
             Zip : 1,
             Phone : 1,
@@ -63,10 +67,11 @@ module.exports = function (app) {
             Agency : 1,
             Service_Type : 1,
             Population : 1,
-            Hours_of_operation : 1,
-            _id:0
-            ,
-          
+            Hours_of_operation : 1
+        });
+        
+       /* ,
+            _id:0,
             Last_Name : 0,
             Title : 0,
             Suite_Floor_Dept_Room : 0,
@@ -82,20 +87,26 @@ module.exports = function (app) {
             CensusTract : 0,
             CensusCountyFips : 0,
             CensusStateFips : 0 */
-        });
         
        query.exec(function (err, results) {
-            if (err)
+            if (err) {
                 res.send(err);
+<<<<<<< HEAD
 
             // If no errors are found, it responds with a JSON of all providers
             if(results) {
 				console.log(results)
                 res.json(results); 
+=======
+>>>>>>> 264572bd298f3f3ed8b8b861462a57ecfc50767c
             } else {
-                res.json({message:"No providers found"});// orig
-            };
-
+                // If no errors are found, it responds with a JSON of all providers
+                if(results) {
+                    res.json(results); 
+                } else {
+                    res.json({message:"No providers found"});// orig
+                };
+            }
         });
     });
 
@@ -119,8 +130,27 @@ module.exports = function (app) {
         });
     });
     
+    app.post('/providers', function (req, res) {
+
+        // Creates a new Provider based on the Mongoose schema and the post body
+        var newProvider = new Provider(req.body);
+        console.log("posting new Provider: " + newProvider);
+        // New User is saved in the db.
+        newProvider.save(function (err) {
+            if (err) {
+                res.send("error" + err);
+            } 
+
+            // If no errors are found, it responds with a JSON of the new provider
+            else {
+                res.json(req.body);
+            }
+        });
+    }); 
+    
     app.post('/providerlocsbytype', function(req, res){
         var query = req.body.query;
+		console.log(util.inspect(req.body));
         var projection = req.body.projection;
         
         var query = Provider.find(query, projection);
@@ -133,6 +163,36 @@ module.exports = function (app) {
         });
         
     });
+    
+    app.post('/geocode', function(req,res){
+        
+       /*from census.gov: https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=1340%20Mayflower%20ave%20arcadia,%20ca&format=json&benchmark=9 
+       */
+        var inaddress = req.body;
+        console.log(req.body);
+           
+        var pString = "";          
+        var i = 0
+        for (var key in inaddress) {
+            pString += inaddress[key] + ' ';
+        }
+ 
+        const googleMapsClient2 = require('@google/maps').createClient({
+               key: googleKey,
+               Promise: Promise
+        });
+
+        googleMapsClient2.geocode({address: pString})
+            .asPromise()
+            .then((response) => {
+                res.send(response.json.results[0].geometry.location)
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send(err);
+          });            
+    });
+    
 
     // Retrieves JSON records for all users who meet a certain set of query conditions
     app.post('/query/', function (req, res) {
