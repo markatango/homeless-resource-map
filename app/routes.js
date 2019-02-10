@@ -91,14 +91,6 @@ module.exports = function (app) {
        query.exec(function (err, results) {
             if (err) {
                 res.send(err);
-<<<<<<< HEAD
-
-            // If no errors are found, it responds with a JSON of all providers
-            if(results) {
-				console.log(results)
-                res.json(results); 
-=======
->>>>>>> 264572bd298f3f3ed8b8b861462a57ecfc50767c
             } else {
                 // If no errors are found, it responds with a JSON of all providers
                 if(results) {
