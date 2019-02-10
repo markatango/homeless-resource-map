@@ -11,29 +11,28 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     var lat = 0;
     var long = 0;
     
-    var service_types = function(
+    // on page load, 
+    $http.get('/provider_types', {})
+        .success(function (queryResults) {
+            
+            // make results avialbe to view
+            $scope.provider_types = queryResults;
+        })
+        .error(function (queryResults) {
+            console.log('Error ' + queryResults);
+        });
     
-            $http.get('/geocode', ())
-            .then(function(result){
-                console.log("result.data: " + JSON.stringify(result.data))
-                $scope.formData.longitude = result.data.lng
-                $scope.formData.latitude = result.data.lat
-                console.log("$scope.formData: " + JSON.stringify($scope.formData))
-            });
-
     $scope.formData.Agency = 
 
         {
-            info: "Agency",
-            name: "Provider",
+            name: "Agenvy",
             hint: "Community Services",
             data: ""
         };
     
     $scope.formData.Services = 
-
+    
         {
-            info: "Services",
             name: "Services",
             hint: "HHS, DV, etc",
             data: ""
@@ -42,84 +41,56 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     $scope.formData.Service_Type = 
 
         {
-            info: "Service_Type",
             name: "Service_Type",
             hint: "Clothing distribution, Health services",
             data: ""
         };
-        
- /* $scope.formData.Street_Address = "";
-    $scope.formData.Services = "";
-    $scope.formData.First_Name = "";
-    $scope.formData.Last_Name = "";
-    $scope.formData.Agency = "";
-    $scope.formData.Title = "";
-    $scope.formData.Service_Type = "";
-    $scope.formData.Population = "";
-    $scope.formData.Hours_of_operation = "";
-    $scope.formData.Suite_Floor_Dept_Room = "";
-    $scope.formData.State = "";
-    $scope.formData.City = "";
-    $scope.formData.Zip = "";
-    $scope.formData.Phone = "";
-    $scope.formData.Email = "";
-    $scope.formData.Website = "";
-    $scope.formData.favlang = "";
- */
-    
+ 
     $scope.formData.restOfProviderInfo = {
 
          "Population" :   {
-                info: "Population",
                 name: "Population",
                 hint: "Adult males, over 18 years old",
                 data: ""
             },
 
          "Hours_of_operation"   :   {
-                info: "Hours_of_operation",
                 name: "Hrs of operation",
                 hint: "8:00 am - 5:00 pm, M-Th",
                 data: ""
             },
 
          "Street_Address"   :   {
-                info: "Street_Address",
                 name: "Street address",
                 hint: "123 Main St",
                 data: ""
             },
 
          "Suite_Floor_Dept_Room"   :   {
-                info: "Suite_Floor_Dept_Room",
                 name: "Ste Floor Dept Rm",
                 hint: "Unit A",
                 data: ""
             },
 
          "City"   :   {
-                info: "City",
                 name: "City",
                 hint: "Los Angeles",
                 data: ""
             },
 
          "State"   :   {
-                info: "State",
                 name: "State",
                 hint: "State",
                 data: ""
             },
 
          "Zip"   :   {
-                info: "Zip",
                 name: "Zip",
                 hint: "91234",
                 data: ""
             },
 
          "Website"   :   {
-                info: "Website",
                 name: "Website",
                 hint: "www.example.com",
                 data: ""
@@ -128,59 +99,39 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
 
     $scope.formData.contactInfo = {
          "Title"   :   {
-                info: "Title",
                 name: "Title",
                 hint: "Salutation",
                 data: ""
             },
 
          "First_Name" :  {
-                info: "First_Name",
                 name: "First name",
                 hint: "First",
                 data: ""
             },
 
          "Last_Name" :  {
-                info: "Last_Name",
                 name: "Last name",
                 hint: "Last",
                 data: ""
             },
 
          "Phone" :   {
-                info: "Phone",
                 name: "Phone",
                 hint: "626-555-1212",
                 data: ""
             },
 
          "Email" :   {
-                info: "Email",
                 name: "Email",
                 hint: "user@example.com",
                 data: ""
             }
         };
 
-    /*$scope.providerInfo = angular.copy(providerInfo);
-
-    $scope.contactInfo = angular.copy(contactInfo);*/           
-
-    /*$scope.providerValues = {};
-    //  $scope.contactValues = {};
-
-    $scope.$watch('providerValues', function (newValue, oldValue, scope) {
-        console.log(newValue);
-    }, true);
-
-    $scope.$watch('contactValues', function (newValue, oldValue, scope) {
-        console.log(newValue);
-        }, true);*/
-
-    // Set initial coordinates to the center of LA
+/*     // Set initial coordinates to the center of LA
     $scope.formData.latitude = 34.052;
-    $scope.formData.longitude = -118.169;
+    $scope.formData.longitude = -118.169; */
 
     // Get User's actual coordinates based on HTML5 at window load
     geolocation.getLocation().then(function (data) {
@@ -192,9 +143,8 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         };
 
         // Display coordinates in location textboxes rounded to three decimal points
-        $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
-        $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
-
+        $scope.formData.user.longitude = parseFloat(coords.long).toFixed(3);
+        $scope.formData.user.latitude = parseFloat(coords.lat).toFixed(3);
 
         //console.log($scope.formData.longitude, $scope.formData.latitude);
 
@@ -272,6 +222,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                 
                 $scope.formData.Agency.data = "";
                 $scope.formData.Services.data = "";
+                $scope.formData.Service_Type.data = "";
                 
                 $scope.formData.restOfProviderInfo.Population.data = "";
                 $scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
@@ -290,7 +241,6 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                
                 $scope.formData.favlang = "";
                 
-
                 // Refresh the map with new data
                 gserviceForProviders.refresh($scope.formData.latitude, $scope.formData.longitude, [providerData]);
 

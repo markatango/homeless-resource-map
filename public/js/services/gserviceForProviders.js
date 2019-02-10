@@ -14,7 +14,7 @@ angular.module('gserviceForProviders', [])
         // Array of locations obtained from API calls
         var locations = [];
 
-        // Selected Location (initialize to center of America)
+        // Selected Location (initialize to center of Los Angeles)
         var selectedLat = 34.045;
         var selectedLong = -118.006355;
 
