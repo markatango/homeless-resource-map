@@ -182,7 +182,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     // Creates a new provider based on the form fields
     $scope.createProvider = function () {
 
-        // Geo code the address
+        // Geocode the address
         var addressBits = {
             Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
             State: $scope.formData.restOfProviderInfo.State.data,
@@ -198,70 +198,74 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
             })
 			.then(function(){
 				
-			}
-			
-		// Grab all the other date
-        var providerData = {
-            Agency: $scope.formData.Agency.data,           
-            Service_Type: $scope.formData.Service_Type.data,
-            Services: $scope.formData.Services.data,
-            
-            Population: $scope.formData.restOfProviderInfo.Population.data,
-            Hours_of_operation: $scope.formData.restOfProviderInfo.Hours_of_operation.data,
-            Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
-            Suite_Floor_Dept_Room: $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data,
-            State: $scope.formData.restOfProviderInfo.State.data,
-            City: $scope.formData.restOfProviderInfo.City.data,
-            Zip: $scope.formData.restOfProviderInfo.Zip.data,
-            Website: $scope.formData.restOfProviderInfo.Website.data,            
-            
-            Title: $scope.formData.contactInfo.Title.data,
-            First_Name: $scope.formData.contactInfo.First_Name.data,
-            Last_Name: $scope.formData.contactInfo.Last_Name.data,
-            Phone: $scope.formData.contactInfo.Phone.data,
-            Email: $scope.formData.contactInfo.Email.data,
+				// Grab all the other date
+				var providerData = {
+					Agency: $scope.formData.Agency.data,           
+					Service_Type: $scope.formData.Service_Type.data,
+					Services: $scope.formData.Services.data,
+					
+					Population: $scope.formData.restOfProviderInfo.Population.data,
+					Hours_of_operation: $scope.formData.restOfProviderInfo.Hours_of_operation.data,
+					Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
+					Suite_Floor_Dept_Room: $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data,
+					State: $scope.formData.restOfProviderInfo.State.data,
+					City: $scope.formData.restOfProviderInfo.City.data,
+					Zip: $scope.formData.restOfProviderInfo.Zip.data,
+					Website: $scope.formData.restOfProviderInfo.Website.data,            
+					
+					Title: $scope.formData.contactInfo.Title.data,
+					First_Name: $scope.formData.contactInfo.First_Name.data,
+					Last_Name: $scope.formData.contactInfo.Last_Name.data,
+					Phone: $scope.formData.contactInfo.Phone.data,
+					Email: $scope.formData.contactInfo.Email.data,
 
-            favlang: $scope.formData.favlang,
-            Location: {longitude: $scope.formData.longitude, latitude : $scope.formData.latitude},
-            htmlverified: $scope.formData.htmlverified
-        };
-
-        // Save the provider data to the db
-        $http.post('/providers', providerData)
-            .then(function (data) {
-                // console.log('Posted: ' + JSON.stringify(data));
-				console.log("posted location is: " + JSON.stringify(providerData.Location))
-				// Refresh the map with new data
-                gserviceForProviders.refresh(providerData.Location.latitude, providerData.Location.longitude, [providerData]);
-
-                // Once complete, clear the form
-                $scope.formData.Agency.data = "";
-                $scope.formData.Services.data = "";
-                $scope.formData.Service_Type.data = "";
-                
-                $scope.formData.restOfProviderInfo.Population.data = "";
-                $scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
-                $scope.formData.restOfProviderInfo.Street_Address.data = "";
-                $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data = "";
-                $scope.formData.restOfProviderInfo.State.data = "";
-                $scope.formData.restOfProviderInfo.City.data = "";
-                $scope.formData.restOfProviderInfo.Zip.data = "";
-                $scope.formData.restOfProviderInfo.Website.data = "";
-                 
-                $scope.formData.contactInfo.Title.data = "";
-                $scope.formData.contactInfo.First_Name.data = "";
-                $scope.formData.contactInfo.Last_Name.data = "";
-                $scope.formData.contactInfo.Phone.data = "";
-                $scope.formData.contactInfo.Email.data = "";
+					favlang: $scope.formData.favlang,
+					Location: {longitude: $scope.formData.longitude, latitude : $scope.formData.latitude},
+					htmlverified: $scope.formData.htmlverified
+				};
 				
-				$scope.formData.latitude = "";
-				$scope.formData.longitude = "";
-               
-                $scope.formData.favlang = "";
+				// Save the provider data to the db
+				$http.post('/providers', providerData)
+					.then(function (data) {
+						// console.log('Posted: ' + JSON.stringify(data));
+						console.log("posted location is: " + JSON.stringify(providerData.Location))
+						// Refresh the map with new data
+						gserviceForProviders.refresh(providerData.Location.latitude, providerData.Location.longitude, [providerData]);
 
-            })
-            .catch(function (data) {
-                console.log('Error: ' + data);
-            });
+						// Once complete, clear the form
+						$scope.formData.Agency.data = "";
+						$scope.formData.Services.data = "";
+						$scope.formData.Service_Type.data = "";
+						
+						$scope.formData.restOfProviderInfo.Population.data = "";
+						$scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
+						$scope.formData.restOfProviderInfo.Street_Address.data = "";
+						$scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data = "";
+						$scope.formData.restOfProviderInfo.State.data = "";
+						$scope.formData.restOfProviderInfo.City.data = "";
+						$scope.formData.restOfProviderInfo.Zip.data = "";
+						$scope.formData.restOfProviderInfo.Website.data = "";
+						 
+						$scope.formData.contactInfo.Title.data = "";
+						$scope.formData.contactInfo.First_Name.data = "";
+						$scope.formData.contactInfo.Last_Name.data = "";
+						$scope.formData.contactInfo.Phone.data = "";
+						$scope.formData.contactInfo.Email.data = "";
+						
+						$scope.formData.latitude = "";
+						$scope.formData.longitude = "";
+					   
+						$scope.formData.favlang = "";
+
+					})
+					.catch(function (data) {
+						console.log('Error: ' + data);
+					});
+
+
+			});
+			
+		
+        
     };
 });
