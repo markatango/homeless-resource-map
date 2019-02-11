@@ -26,7 +26,7 @@ angular.module('gserviceForProviders', [])
         // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
         googleMapServiceFP.refresh = function (latitude, longitude, filteredResults) {
 
-            //console.log("googleMapServiceFP.refresh" + latitude + " " + longitude + " " + filteredResults);
+            console.log("googleMapServiceFP.refresh" + latitude + " " + longitude + " " + JSON.stringify(filteredResults));
 
             // Clears the holding array of locations
             locations = [];

@@ -18,12 +18,12 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     $http.get('/provider_types', {})
         .success(function (queryResults) {
 			
-            $scope.provider_types = []
+            $scope.formData.provider_types = []
 			for (qr in queryResults){
-				$scope.provider_types.push(queryResults[qr].mne + " -- " + queryResults[qr].shortDes)
+				$scope.formData.provider_types.push(queryResults[qr].mne + " -- " + queryResults[qr].shortDes)
 			}
 			
-			console.log($scope.provider_types)
+			console.log($scope.formData.provider_types)
         })
         .error(function (queryResults) {
             console.log('Error ' + queryResults);
@@ -32,15 +32,15 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     $scope.formData.Agency = 
 
         {
-            name: "Agenvy",
+            name: "Agency",
             hint: "Community Services",
             data: ""
         };
-    
-    $scope.formData.Services = 
-    
+		
+	$scope.formData.Services = 
+
         {
-            name: "Services",
+            name: "Agency",
             hint: "HHS, DV, etc",
             data: ""
         };
@@ -48,7 +48,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     $scope.formData.Service_Type = 
 
         {
-            name: "Service_Type",
+            name: "Description",
             hint: "Clothing distribution, Health services",
             data: ""
         };
@@ -135,6 +135,10 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                 data: ""
             }
         };
+		
+	$scope.update_provider_type = function(){
+		console.log("provider_type: " + $scope.formData.Services.data)
+	}
 
 /*     // Set initial coordinates to the center of LA
     $scope.formData.latitude = 34.052;
@@ -178,26 +182,28 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     // Creates a new provider based on the form fields
     $scope.createProvider = function () {
 
-        // Grabs all of the text box fields
+        // Geo code the address
         var addressBits = {
             Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
             State: $scope.formData.restOfProviderInfo.State.data,
             City: $scope.formData.restOfProviderInfo.City.data
         };
 
-        console.log(addressBits);
-        
         $http.post('/geocode', addressBits)
             .then(function(result){
                 console.log("result.data: " + JSON.stringify(result.data))
                 $scope.formData.longitude = result.data.lng
                 $scope.formData.latitude = result.data.lat
-                console.log("$scope.formData: " + JSON.stringify($scope.formData))
-            });
-            
+				console.log("scope location: " + $scope.formData.longitude + "  " + $scope.formData.latitude)
+            })
+			.then(function(){
+				
+			}
+			
+		// Grab all the other date
         var providerData = {
             Agency: $scope.formData.Agency.data,           
-            
+            Service_Type: $scope.formData.Service_Type.data,
             Services: $scope.formData.Services.data,
             
             Population: $scope.formData.restOfProviderInfo.Population.data,
@@ -220,13 +226,15 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
             htmlverified: $scope.formData.htmlverified
         };
 
-        // Saves the provider data to the db
+        // Save the provider data to the db
         $http.post('/providers', providerData)
             .then(function (data) {
-                console.log('Posted: ' + JSON.stringify(data));
+                // console.log('Posted: ' + JSON.stringify(data));
+				console.log("posted location is: " + JSON.stringify(providerData.Location))
+				// Refresh the map with new data
+                gserviceForProviders.refresh(providerData.Location.latitude, providerData.Location.longitude, [providerData]);
 
-                // Once complete, clear the form (except location)
-                
+                // Once complete, clear the form
                 $scope.formData.Agency.data = "";
                 $scope.formData.Services.data = "";
                 $scope.formData.Service_Type.data = "";
@@ -245,11 +253,11 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                 $scope.formData.contactInfo.Last_Name.data = "";
                 $scope.formData.contactInfo.Phone.data = "";
                 $scope.formData.contactInfo.Email.data = "";
+				
+				$scope.formData.latitude = "";
+				$scope.formData.longitude = "";
                
                 $scope.formData.favlang = "";
-                
-                // Refresh the map with new data
-                gserviceForProviders.refresh($scope.formData.latitude, $scope.formData.longitude, [providerData]);
 
             })
             .catch(function (data) {
