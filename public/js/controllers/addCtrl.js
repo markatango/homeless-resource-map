@@ -7,16 +7,23 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     // Initializes Variables
     // ----------------------------------------------------------------------------
     $scope.formData = {};
+	$scope.formData.user = {};
+	
     var coords = {};
     var lat = 0;
-    var long = 0;
+    var lng = 0;
+	
     
     // on page load, 
     $http.get('/provider_types', {})
         .success(function (queryResults) {
-            
-            // make results avialbe to view
-            $scope.provider_types = queryResults;
+			
+            $scope.provider_types = []
+			for (qr in queryResults){
+				$scope.provider_types.push(queryResults[qr].mne + " -- " + queryResults[qr].shortDes)
+			}
+			
+			console.log($scope.provider_types)
         })
         .error(function (queryResults) {
             console.log('Error ' + queryResults);
@@ -139,11 +146,11 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         // Set the latitude and longitude equal to the HTML5 coordinates
         coords = {
             lat: data.coords.latitude,
-            long: data.coords.longitude
+            lng: data.coords.longitude
         };
 
         // Display coordinates in location textboxes rounded to three decimal points
-        $scope.formData.user.longitude = parseFloat(coords.long).toFixed(3);
+        $scope.formData.user.longitude = parseFloat(coords.lng).toFixed(3);
         $scope.formData.user.latitude = parseFloat(coords.lat).toFixed(3);
 
         //console.log($scope.formData.longitude, $scope.formData.latitude);
@@ -151,7 +158,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         // Display message confirming that the coordinates verified.
         $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
         // parseFloat turned the numbers into characters and google api didn't like them.
-        gserviceForProviders.refresh(coords.lat, coords.long);
+        gserviceForProviders.refresh(coords.lat, coords.lng);
 
     });
 

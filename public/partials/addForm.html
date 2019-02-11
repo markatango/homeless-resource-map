@@ -18,24 +18,27 @@
                     <div class="col col-md-1"></div>
                 </div>
                 
-                <div class="form-group row">
+               <!--  <div class="form-group row">
                     <label for="{{formData.Services.name}}" class="col col-md-3 text-right">{{ formData.Services.name }} *</label>
                     <div class="col col-md-8">
                     <input type="text" class="form-control" id="{{formData.Services.name}}" placeholder="{{formData.Services.hint}}" ng-model="formData.Services.data" required> 
                     </div>
                     <div class="col col-md-1"></div>
                 </div>
+                 -->
                 
                 
                 
-                
-                <!-- <div class="form-group row">
-                  <form name="myForm">
-                    <label for="Services"> Services * </label>
-                    <select name="Services" id="Services" ng-model="formData.services.data">
-                      <option ng-repeat="option in formData.Services" value="{{option.id}}">{{formData.services.name}}</option>
+                <div class="form-group row">
+                  
+                    <label for="Services" class="col col-md-3 text-right"> Services * </label>
+					<div class="col col-md-8">
+                    <select name="Services" id="Services" ng-model="formData.Services">
+                      <option class="form-control" ng-repeat="option in provider_types" value="{{option}}">{{option}}</option>
                     </select>
-                  </form>
+					</div>
+					 <div class="col col-md-1"></div>
+      
                 </div>
                 
                 
@@ -47,7 +50,7 @@
                         <textarea rows="4" cols="50" class="form-control" id="{{formData.Service_Type.name}}" placeholder="{{formData.Service_Type.hint}}" ng-model="formData.Service_Type.data" required></textarea>
                     </div>
                     <div class="col col-md-1"></div>
-                </div> -->
+                </div>
                            
                 <div class="form-group row" style="top:0px;" ng-repeat="prov in formData.restOfProviderInfo">   
                     <label for="{{prov.name}}" class="col col-md-3 text-right">{{ prov.name }} *</label>
