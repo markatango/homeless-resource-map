@@ -8,7 +8,8 @@
         <!-- Panel Body -->
         <div class="panel-body">    
             <!--  <input type='button' name="stButton" value="Get service mnemonics" on-click=/> -->
-            <form name = "addForm" novalidate>
+            <form   name = "addForm" novalidate  
+                    ng-submit="createProvider()">
                 
                 <div class="form-group row">
                     <label for="{{formData.Agency.name}}" class="col col-md-3 text-right">{{ formData.Agency.name }} *</label>
@@ -62,7 +63,7 @@
                     <div class="col col-md-1"></div>
                 </div>
 
-                <button type="submit" class="btn btn-danger btn-block" ng-click="createProvider()" ng-disabled="addForm.$invalid">Submit</button>
+                <button type="submit" class="btn btn-danger btn-block" ng-disabled="addForm.$invalid">Submit</button> <!--  ng-click="createProvider()"  -->
             </form>
         </div>
     </div>

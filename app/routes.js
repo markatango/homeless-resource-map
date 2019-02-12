@@ -5,9 +5,12 @@ var User = require('./models/user.js');
 var Provider = require('./models/provider.js');
 var Provider_type = require('./models/provider_type.js');
 var util = require("util");
-var secrets = require("./secrets/secrets");
-
-var googleKey = secrets().googleKey;
+const secrets = require("./secrets/secrets");
+const googleKey = secrets().googleKey;
+const googleMapsClient2 = require('@google/maps').createClient({
+       key: googleKey,
+       Promise: Promise
+    });
 
 // Opens App Routes
 module.exports = function (app) {
@@ -168,19 +171,15 @@ module.exports = function (app) {
         for (var key in inaddress) {
             pString += inaddress[key] + ' ';
         }
- 
-        const googleMapsClient2 = require('@google/maps').createClient({
-               key: googleKey,
-               Promise: Promise
-        });
 
         googleMapsClient2.geocode({address: pString})
             .asPromise()
             .then((response) => {
+                console.log("geocode result: " + results[0])
                 res.send(response.json.results[0].geometry.location)
             })
             .catch((err) => {
-                console.log(err);
+                console.log("geocoder error: " + err);
                 res.send(err);
           });            
     });

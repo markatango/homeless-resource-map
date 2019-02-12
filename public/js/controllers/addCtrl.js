@@ -17,13 +17,10 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     // on page load, 
     $http.get('/provider_types', {})
         .success(function (queryResults) {
-			
             $scope.formData.provider_types = []
 			for (qr in queryResults){
 				$scope.formData.provider_types.push(queryResults[qr].mne + " -- " + queryResults[qr].shortDes)
 			}
-			
-			console.log($scope.formData.provider_types)
         })
         .error(function (queryResults) {
             console.log('Error ' + queryResults);
@@ -137,7 +134,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         };
 		
 	$scope.update_provider_type = function(){
-		console.log("provider_type: " + $scope.formData.Services.data)
+		// console.log("provider_type: " + $scope.formData.Services.data)
 	}
 
 /*     // Set initial coordinates to the center of LA
@@ -157,13 +154,10 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         $scope.formData.user.longitude = parseFloat(coords.lng).toFixed(3);
         $scope.formData.user.latitude = parseFloat(coords.lat).toFixed(3);
 
-        //console.log($scope.formData.longitude, $scope.formData.latitude);
-
         // Display message confirming that the coordinates verified.
         $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
         // parseFloat turned the numbers into characters and google api didn't like them.
         gserviceForProviders.refresh(coords.lat, coords.lng);
-
     });
 
     // Functions
@@ -182,7 +176,7 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
     // Creates a new provider based on the form fields
     $scope.createProvider = function () {
 
-        // Geocode the address
+        // Geocode the address...
         var addressBits = {
             Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
             State: $scope.formData.restOfProviderInfo.State.data,
@@ -191,11 +185,11 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
 
         $http.post('/geocode', addressBits)
             .then(function(result){
-                console.log("result.data: " + JSON.stringify(result.data))
                 $scope.formData.longitude = result.data.lng
                 $scope.formData.latitude = result.data.lat
-				console.log("scope location: " + $scope.formData.longitude + "  " + $scope.formData.latitude)
             })
+            
+            // Construct the complete provider data structure from the form
 			.then(function(){
 				
 				// Grab all the other date
@@ -224,46 +218,54 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
 					htmlverified: $scope.formData.htmlverified
 				};
 				
-				// Save the provider data to the db
-				$http.post('/providers', providerData)
-					.then(function (data) {
-						// console.log('Posted: ' + JSON.stringify(data));
-						console.log("posted location is: " + JSON.stringify(providerData.Location))
-						// Refresh the map with new data
-						gserviceForProviders.refresh(providerData.Location.latitude, providerData.Location.longitude, [providerData]);
+				// Save the provider data to the db if the location is present
+                if (providerData.Location){
+                    console.log("if: " + providerData.Location)
+                    $http.post('/providers', providerData)
+                        .then(function (data) {
+                            // console.log('Posted: ' + JSON.stringify(data));
+                            // console.log("posted location is: " + JSON.stringify(providerData.Location))
+                            // Refresh the map with new data
+                            gserviceForProviders.refresh(providerData.Location.latitude, providerData.Location.longitude, [providerData]);
 
-						// Once complete, clear the form
-						$scope.formData.Agency.data = "";
-						$scope.formData.Services.data = "";
-						$scope.formData.Service_Type.data = "";
-						
-						$scope.formData.restOfProviderInfo.Population.data = "";
-						$scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
-						$scope.formData.restOfProviderInfo.Street_Address.data = "";
-						$scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data = "";
-						$scope.formData.restOfProviderInfo.State.data = "";
-						$scope.formData.restOfProviderInfo.City.data = "";
-						$scope.formData.restOfProviderInfo.Zip.data = "";
-						$scope.formData.restOfProviderInfo.Website.data = "";
-						 
-						$scope.formData.contactInfo.Title.data = "";
-						$scope.formData.contactInfo.First_Name.data = "";
-						$scope.formData.contactInfo.Last_Name.data = "";
-						$scope.formData.contactInfo.Phone.data = "";
-						$scope.formData.contactInfo.Email.data = "";
-						
-						$scope.formData.latitude = "";
-						$scope.formData.longitude = "";
-					   
-						$scope.formData.favlang = "";
+                            // Once complete, clear the form
+                            $scope.formData.Agency.data = "";
+                            $scope.formData.Services.data = "";
+                            $scope.formData.Service_Type.data = "";
+                            
+                            $scope.formData.restOfProviderInfo.Population.data = "";
+                            $scope.formData.restOfProviderInfo.Hours_of_operation.data = "";
+                            $scope.formData.restOfProviderInfo.Street_Address.data = "";
+                            $scope.formData.restOfProviderInfo.Suite_Floor_Dept_Room.data = "";
+                            $scope.formData.restOfProviderInfo.State.data = "";
+                            $scope.formData.restOfProviderInfo.City.data = "";
+                            $scope.formData.restOfProviderInfo.Zip.data = "";
+                            $scope.formData.restOfProviderInfo.Website.data = "";
+                             
+                            $scope.formData.contactInfo.Title.data = "";
+                            $scope.formData.contactInfo.First_Name.data = "";
+                            $scope.formData.contactInfo.Last_Name.data = "";
+                            $scope.formData.contactInfo.Phone.data = "";
+                            $scope.formData.contactInfo.Email.data = "";
+                            
+                            $scope.formData.latitude = "";
+                            $scope.formData.longitude = "";
+                           
+                            $scope.formData.favlang = "";
 
-					})
-					.catch(function (data) {
-						console.log('Error: ' + data);
-					});
+                        })
+                        .catch(function (data) {
+                            console.log('Error: ' + data);
+                        });
+                }
 
 
-			});
+			})
+            .catch(function(res){
+                alert("Ack! bad addresss")
+                
+                
+            });
 			
 		
         
