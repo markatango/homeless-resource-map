@@ -1,0 +1,84 @@
+<!-- <div class="col-md-5"> -->
+    <!-- <div class="panel panel-default">
+        <!-- Panel Title -->
+       <!-- <div class="panel-heading">
+            <h2 class="panel-title text-center">Providers</h2>
+        </div>
+        <!-- Panel Body -->
+        <!--<div class="panel-body">
+            <!-- List all service types from dsc collection -->
+            <!-- <ul>
+                <li ng-repeat="prov in providers" >
+                    <h4 >{{prov.Agency}}</h4>
+                    <p >{{prov.Services}}</p>
+                    <hr />
+                    <p>{{prov.City}}</p>
+                </li> 
+            </ul> -->
+            
+      <!--  <table>
+          <tr ng-repeat="prov in providers">
+            <td>{{prov.Agency}}</td>
+            <td>{{prov.Services}}</td>
+            <td>{{prov.City}}</td>
+          </tr>
+        </table>
+            
+        </div>
+    </div> -->
+<!-- </div> -->
+
+<div class="panel panel-default">
+        <!-- Panel Title -->
+        <div class="panel-heading">
+            <h2 class="panel-title text-center">Providers</h2>
+        </div>
+        <!-- Panel Body -->
+        <div class="panel-body">
+  
+ <!--  <div class="alert alert-info">
+    <p>Sort Type: {{ sortType }}</p>
+    <p>Sort Reverse: {{ sortReverse }}</p>
+    <p>Search Query: {{ searchFish }}</p>
+  </div>
+   -->
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search provider data" ng-model="searchFish">
+      </div>      
+    </div>
+  </form>
+  
+  <table class="table table-bordered table-striped">
+    
+    <thead>
+      <tr>
+        <td ng-repeat="f in fields track by $index">
+          <a href="#" ng-click="sortType = '{{f}}'; sortReverse = !sortReverse">
+            {{f}} 
+            <span ng-show="sortType == '{{f}}' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == '{{f}}' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+        </td>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr ng-repeat="prov in providers  | orderBy:sortType:sortReverse | filter:searchFish">
+        <td ng-repeat="f in fields">{{ prov[f] }}</td>
+      </tr>
+    </tbody>  
+    
+  </table>
+  
+  <p class="text-center text-muted">
+    <a href="#" target="_blank">Read the Tutorial</a>
+  </p>
+  
+  <p class="text-center">
+    by <a href="https://scotch.io" target="_blank">scotch.io</a>
+  </p>
+  
+</div>

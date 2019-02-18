@@ -61,35 +61,23 @@ module.exports = function (app) {
         var query = Provider.find({}, {
             Agency: 1,
             Street_Address : 1,
+            Suite_Floor_Dept_Room : 1,   
             City : 1,
+            State : 1, 
             Zip : 1,
             Phone : 1,
             Email : 1,
             Website : 1,
             Location : 1,
             Agency : 1,
+            Services : 1,
             Service_Type : 1,
             Population : 1,
-            Hours_of_operation : 1
+            Hours_of_operation : 1,
+            Title : 1,
+            First_Name : 1,
+            Last_Name : 1,
         });
-        
-       /* ,
-            _id:0,
-            Last_Name : 0,
-            Title : 0,
-            Suite_Floor_Dept_Room : 0,
-            State : 0,       
-            CensusPlaceFips : 0,
-            CensusMsaFips : 0,
-            CensusMetDivFips : 0,
-            CensusMcdFips : 0,
-            CensusCbsaMicro : 0,
-            CensusCbsaFips : 0,
-            CensusBlock : 0,
-            CensusBlockGroup : 0,
-            CensusTract : 0,
-            CensusCountyFips : 0,
-            CensusStateFips : 0 */
         
        query.exec(function (err, results) {
             if (err) {
@@ -164,26 +152,25 @@ module.exports = function (app) {
        /*from census.gov: https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=1340%20Mayflower%20ave%20arcadia,%20ca&format=json&benchmark=9 
        */
         var inaddress = req.body;
-        console.log(req.body);
+        //console.log("post geocode req.body: " + JSON.stringify(inaddress))
+        //console.log("google key: " + googleKey)
            
         var pString = "";          
         var i = 0
         for (var key in inaddress) {
             pString += inaddress[key] + ' ';
-        }
-
+        } 
         googleMapsClient2.geocode({address: pString})
             .asPromise()
             .then((response) => {
-                console.log("geocode result: " + results[0])
+                //console.log("geocode result: " + JSON.stringify(response))
                 res.send(response.json.results[0].geometry.location)
             })
             .catch((err) => {
                 console.log("geocoder error: " + err);
                 res.send(err);
-          });            
+            }); 
     });
-    
 
     // Retrieves JSON records for all users who meet a certain set of query conditions
     app.post('/query/', function (req, res) {

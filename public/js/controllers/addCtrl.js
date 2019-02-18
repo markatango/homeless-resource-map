@@ -31,7 +31,8 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
         {
             name: "Agency",
             hint: "Community Services",
-            data: ""
+            data: "",
+            type: "text"
         };
 		
 	$scope.formData.Services = 
@@ -55,7 +56,8 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
          "Population" :   {
                 name: "Population",
                 hint: "Adult males, over 18 years old",
-                data: ""
+                data: "",
+                type: "text"
             },
 
          "Hours_of_operation"   :   {
@@ -178,15 +180,17 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
 
         // Geocode the address...
         var addressBits = {
-            Street_Address: $scope.formData.restOfProviderInfo.Street_Address.data,
+            Street: $scope.formData.restOfProviderInfo.Street_Address.data,
+            City: $scope.formData.restOfProviderInfo.City.data,
             State: $scope.formData.restOfProviderInfo.State.data,
-            City: $scope.formData.restOfProviderInfo.City.data
         };
 
         $http.post('/geocode', addressBits)
             .then(function(result){
+                console.log("address bits: " + JSON.stringify(addressBits))
                 $scope.formData.longitude = result.data.lng
                 $scope.formData.latitude = result.data.lat
+                console.log("post / geocode result.data: " + JSON.stringify(result.data))
             })
             
             // Construct the complete provider data structure from the form
@@ -258,16 +262,9 @@ addCtrl.controller('addCtrl', function ($scope, $http, $rootScope, geolocation, 
                             console.log('Error: ' + data);
                         });
                 }
-
-
 			})
             .catch(function(res){
                 alert("Ack! bad addresss")
-                
-                
             });
-			
-		
-        
     };
 });

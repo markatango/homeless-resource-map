@@ -41,14 +41,19 @@
     <!-- Controllers -->
     <script src="./js/app.js"></script>
     <script src="./js/controllers/selectTypeCtrl.js"></script>
-
+    <script src="./js/controllers/listProvidersCtrl.js"></script>
     <script src="./js/controllers/addCtrl.js"></script>
+    <script src="./js/controllers/xeditCtrl.js"></script>
     <!-- <script src="./js/controllers/queryCtrl.js"></script> -->
 
 
     <!-- Geolocation service script -->
     <script src="js/services/gservice.js"></script>
     <script src="js/services/gserviceForProviders.js"></script>
+    
+    <!-- x-editable table components -->
+    <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 
     <script src="./js/misc/tooltips.js"></script>
     <script>document.write('<base href="' + document.location + '" />');</script> 
@@ -58,6 +63,9 @@
     <div class="jumbotron">
         <h1>Homeless population distribution and service locations</h1>
         <p>Comparing locations of services for the homeless with locations of homeless persons</p>
+    </div>
+    <div ng-controller="xeditCtrl">
+        <a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
     </div>
     <div class="container-fluid">
         <!-- Map and Side Panel -->
@@ -71,7 +79,7 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item" id="find"><a class="nav-link active" data-toggle="pill" href="#selecttype">Find a service</a></li>
                             <li class="nav-item" id="add"><a class="nav-link" data-toggle="pill" href="#join">Add a service</a></li>
-                            <li class="nav-item" id="list"><a class="nav-link" data-toggle="pill" href="#selecttype">List services</a></li>
+                            <li class="nav-item" id="list"><a class="nav-link" data-toggle="pill" href="#listprovs">List providers</a></li>
                         </ul>
                         <div ng-view></div>
                      <!--   </div> -->

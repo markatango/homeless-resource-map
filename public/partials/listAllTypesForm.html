@@ -8,11 +8,11 @@
         <div class="panel-body">
             <!-- List all service types from dsc collection -->
             <ul>
-                <li ng-repeat="type in provider_types" >
-                    <h4 >{{type.mne}}</h4>
-                    <p >{{type.shortDes}}</p>
+                <li ng-repeat="prov in providers" >
+                    <h4 >{{prov.mne}}</h4>
+                    <p >{{prov.shortDes}}</p>
                     <hr />
-                    <p>{{type.longDesc}}</p>
+                    <p>{{prov.longDesc}}</p>
                 </li> 
             </ul>
             
