@@ -64,10 +64,13 @@
         <h1>Homeless population distribution and service locations</h1>
         <p>Comparing locations of services for the homeless with locations of homeless persons</p>
     </div>
-    <div ng-controller="xeditCtrl">
-        <a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
-    </div>
+    
     <div class="container-fluid">
+        <div class="row">
+            <div class="col col-md-12" style="height:50px;" ng-controller="xeditCtrl">
+                <a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
+            </div>
+        </div>
         <!-- Map and Side Panel -->
         <div class="row">
             <div class="col col-md-12" style="left:20px; position:relative">
