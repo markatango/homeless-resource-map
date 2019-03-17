@@ -26,7 +26,7 @@ angular.module('gserviceForProviders', [])
         // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
         googleMapServiceFP.refresh = function (latitude, longitude, filteredResults) {
 
-            console.log("googleMapServiceFP.refresh" + latitude + " " + longitude + " " + JSON.stringify(filteredResults));
+            console.log("googleMapServiceFP.refresh: " + latitude + " " + longitude + " " + JSON.stringify(filteredResults));
 
             // Clears the holding array of locations
             locations = [];
@@ -160,19 +160,17 @@ angular.module('gserviceForProviders', [])
                     zoom: 10,
                     center: myLatLng
                 });
-                var ctaLayer = new google.maps.KmlLayer(
-                /* {
-                    url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
-                    map: map
-                } */
                 
+                console.log(map.getZoom())
+                var ctaLayer = new google.maps.KmlLayer(
                 {
                     url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
                     map: map
-                });
+                }); 
                 
-
+                
             }
+            
             google.maps.event.addListener(ctaLayer, 'click', function (kmlEvent) {
                 //var text = kmlEvent.featureData.description;
                 //alert(text);
@@ -240,6 +238,8 @@ angular.module('gserviceForProviders', [])
                 googleMapServiceFP.clickLong = marker.getPosition().lng();
                 $rootScope.$broadcast("clicked");
             });
+            
+            map.setZoom(14);
 
         };
 
