@@ -5,12 +5,17 @@ var User = require('./models/user.js');
 var Provider = require('./models/provider.js');
 var Provider_type = require('./models/provider_type.js');
 var util = require("util");
+var path = require('path');
 const secrets = require("./secrets/secrets");
 const googleKey = secrets().googleKey;
+
 const googleMapsClient2 = require('@google/maps').createClient({
        key: googleKey,
        Promise: Promise
     });
+    
+   
+console.log(JSON.stringify(secrets))
 
 // Opens App Routes
 module.exports = function (app) {
@@ -48,6 +53,10 @@ module.exports = function (app) {
     });
     
     
+    app.get("/kml", function(req, res){
+      let kmlpath = path.join(__dirname, 'data', 'ctaLA2012polyonly.xml')
+      res.sendfile(kmlpath);
+    })
     
     
     

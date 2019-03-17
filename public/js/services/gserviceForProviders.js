@@ -157,7 +157,7 @@ angular.module('gserviceForProviders', [])
 
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 10,
+                    zoom: 8,
                     center: myLatLng
                 });
                 
@@ -165,10 +165,9 @@ angular.module('gserviceForProviders', [])
                 var ctaLayer = new google.maps.KmlLayer(
                 {
                     url: 'http://markatango.com/kml/kmlfiles/ctaLA2012polyonly.kml',
-                    map: map
+                    map: map,
+                    preserveViewport : true
                 }); 
-                
-                
             }
             
             google.maps.event.addListener(ctaLayer, 'click', function (kmlEvent) {
