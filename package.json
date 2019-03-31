@@ -22,7 +22,7 @@
     "express": "^4.16.4",
     "holderjs": "^2.9.4",
     "jsonwebtoken": "^5.0.2",
-    "method-override": "~2.1.2",
+    "method-override": ">=2.3.10",
     "mongoose": "^5.4.13",
     "morgan": "^1.9.1"
   },
