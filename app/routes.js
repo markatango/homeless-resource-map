@@ -6,16 +6,19 @@ var Provider = require('./models/provider.js');
 var Provider_type = require('./models/provider_type.js');
 var util = require("util");
 var path = require('path');
-const secrets = require("./secrets/secrets");
+/* const secrets = require("./secrets/secrets");
 const googleKey = secrets().googleKey;
-
+ */
+ 
+var googleKey = process.env.GOOGLE_MAP_GEOCODE_KEY;
+ 
 const googleMapsClient2 = require('@google/maps').createClient({
        key: googleKey,
        Promise: Promise
     });
     
    
-console.log(JSON.stringify(secrets))
+//console.log(JSON.stringify(secrets))
 
 // Opens App Routes
 module.exports = function (app) {
