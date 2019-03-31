@@ -65,7 +65,7 @@ angular.module('gserviceForProviders', [])
         };
         
         
-        // Refresh the Map with new data. Takes three parameters (lat, long, and filtering results)
+        // Geocode the address provided in providerData structure
         googleMapServiceFP.geocode = function (providerData) {
 
                 $http.post('/geocode', {providerData})
@@ -109,7 +109,8 @@ angular.module('gserviceForProviders', [])
                     message: new google.maps.InfoWindow({
                             content: contentString,
                             maxWidth: 320
-                        })
+                        }),
+                    label: provider.Agency
                         /*,
                                             Agency: provider.Agency,
                                             Service_Type: provider.Service_Type,
@@ -157,7 +158,7 @@ angular.module('gserviceForProviders', [])
 
                 // Create a new map and place in the index.html page
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 8,
+                    zoom: 4,
                     center: myLatLng
                 });
                 
@@ -188,9 +189,10 @@ angular.module('gserviceForProviders', [])
                 var marker = new google.maps.Marker({
                     position: n.latlon,
                     map: map,
-                    title: "Service provider",
+                    
+                    title: n.label,
                     icon: icon,
-                });
+                });//title: "Service provider",
 
                 // For each marker created, add a listener that checks for clicks
                 google.maps.event.addListener(marker, 'click', function (e) {
